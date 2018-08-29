@@ -1,0 +1,93 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php
+/** @var \Magento\Catalog\Pricing\Render\FinalPriceBox $block */
+
+$productId = $block->getSaleableItem()->getId();
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product_obj = $objectManager->create('Magento\Catalog\Model\Product')->load($productId);
+$tier_price = $product_obj->getTierPrice();
+$tp = 0;
+$difference = 0;
+if(count($tier_price) > 0){
+    foreach($tier_price as $pirces){
+        foreach ( array_reverse($pirces) as $k => $v ) {
+            if($k == "price"){
+                $tp = number_format($v, 2, '.', '');
+            }
+        }
+    }
+    $pPrice = number_format($product_obj->getPrice(),2,'.','');
+    $difference = ($pPrice - $tp);
+}
+
+
+/** @var \Magento\Catalog\Pricing\Price\RegularPrice $priceModel */
+$priceModel = $block->getPriceType('regular_price');
+
+/** @var \Magento\Catalog\Pricing\Price\FinalPrice $finalPriceModel */
+$finalPriceModel = $block->getPriceType('final_price');
+$idSuffix = $block->getIdSuffix() ? $block->getIdSuffix() : '';
+$schema = ($block->getZone() == 'item_view') ? true : false;
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->get('Magento\Framework\App\Http\Context');
+$isLoggedIn = $customerSession->getValue(\Magento\Customer\Model\Context::CONTEXT_AUTH);
+
+$specialPriceModel = $block->getPriceType('special_price');
+//$clearancePriceModel = $block->getPriceType('clearance_price');
+
+$priceHelper = $objectManager->create('Magento\Framework\Pricing\Helper\Data'); // Instance of Pricing Helper
+$difference = ($priceModel->getAmount()->getValue() - $product_obj->getFinalPrice());
+$formattedPrice = $priceHelper->currency($difference, true, false);
+?>
+<?php if($isLoggedIn) : ?>
+    <?php if ($block->hasSpecialPrice() || $difference > 0): ?>
+        <span class="old-price">
+            <?php /* @escapeNotVerified */ echo $block->renderAmount($priceModel->getAmount(), [
+                'display_label'     => __('Regular Price:'),
+                'price_id'          => $block->getPriceId('old-price-' . $idSuffix),
+                'price_type'        => 'oldPrice',
+                'include_container' => true,
+                'skip_adjustments'  => true
+            ]); ?>
+        </span>
+        <span class="final-price">
+            <?php /* @escapeNotVerified */ echo $block->renderAmount($finalPriceModel->getCustomAmount
+            ($product_obj->getFinalPrice()), [
+                'display_label'     => __('Your Price:'),
+                'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+                'price_type'        => 'finalPrice',
+                'include_container' => true,
+                'schema' => $schema
+            ]); ?>
+        </span>
+        <span class="saved-price">
+            <span class="price-container">
+                <span class="price-label"><?php echo __('You save:'); ?></span>
+                <span class="price"><?php echo $formattedPrice;  ?></span>
+            </span>
+        </span>
+    <?php else: ?>
+        <?php /* @escapeNotVerified */ echo $block->renderAmount($finalPriceModel->getCustomAmount
+        ($product_obj->getFinalPrice()), [
+            'display_label'     => __('Your Price:'),
+            'price_id'          => $block->getPriceId('product-price-' . $idSuffix),
+            'price_type'        => 'finalPrice',
+            'include_container' => true,
+            'schema' => $schema
+        ]); ?>
+    <?php endif; ?>
+
+<?php else: ?>
+    <div class="price-not"><a href="<?php echo $block->getBaseUrl(); ?>customer/account/login/">Login for Price</a></div>
+<?php endif; ?>

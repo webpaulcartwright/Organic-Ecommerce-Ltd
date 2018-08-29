@@ -1,0 +1,113 @@
+<?php
+/**
+ * Copyright © 2016 SW-THEMES. All rights reserved.
+ */
+
+?>
+<?php
+/**
+ * Top menu for store
+ *
+ * @see \Smartwave\Megamenu\Block\Topmenu
+ */
+?>
+<?php
+    $_helper = $this->helper('Smartwave\Megamenu\Helper\Data');
+    $_config = $_helper->getConfig('sw_megamenu');
+    $columnsLimit = 0;
+    $header_type = $_helper->getConfig('porto_settings/header/header_type');
+    
+    if($_config['general']['enable']) {
+?>
+<?php $_menu = $block->getMegamenuHtml(); ?>
+
+<nav class="navigation sw-megamenu <?php if($header_type == 8 || $header_type == 10): ?>side-megamenu<?php endif; ?>" role="navigation">
+    <ul id="mySidenav" class="mainmenutop">
+	<!--<a href="javascript:void(0)" style="display:none;" class="closebtn opennav" onclick="closeNav()">&times;</a>-->
+        <?php //echo $_menu; ?> 
+  <!-- <li class="ui-menu-item level0"><a class="level-top" href="<?php /*echo $this->getUrl('');*/?>"><span>Home</span></a></li>
+   <li class="ui-menu-item level0"><a class="level-top" href="<?php /*echo $this->getUrl('about-us');*/?>"><span>ABOUT US</span></a></li>   -->
+        <li class="ui-menu-item level0" style="color: #E1E1E1;font-size: 13px;">BROWSE BY <small><i class="children-arrow porto-icon-right-open"></i></small></li>
+        <li class="ui-menu-item level0 fullwidth parent ">
+			<div class="open-children-toggle"></div>
+			<a class="level-top" href="javascript: void(0);"><span>Category</span></a>
+			<div class="level0 submenu">
+					<div class="container">
+					<div class="row">
+						<ul class="subchildmenu col-sm-12 mega-columns columns6">
+
+                            <?php
+									$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+									$catId = 2; // Parent Category ID
+									$subcategory = $objectManager->create('Magento\Catalog\Model\Category')->load($catId);
+									$subcats = $subcategory->getChildrenCategories();
+									$_helper = $this->helper('Magento\Catalog\Helper\Output');
+									
+									$categorysubArray = [];
+
+
+
+
+        //$sortedsubArray = $this->array_msort($categorysubArray, ['name' => SORT_ASC]);
+        			//debug(print_r($subcats, true));			
+									?>
+								
+								<?php
+								foreach ($subcats as $subcat) {
+								$_category = $objectManager->create('Magento\Catalog\Model\Category')->load($subcat->getId());
+								$_outputhelper = $this->helper('Magento\Catalog\Helper\Output');
+								$subcaturl = $subcat->getUrl();
+								$subcatname = $subcat->getName();
+								//echo '<li class="ui-menu-item level1"><a href="'.$subcaturl.'" style="font-weight: 600;color: #696969;margin-top: 0">'.$subcatname.'</a></li>'; \
+
+                                    array_push($categorysubArray,['url' => $subcaturl,'name' => $subcatname]);
+
+								}
+
+                            $categorysubArray = $this->array_msort($categorysubArray,['name' => SORT_ASC]);
+
+								foreach ($categorysubArray as $cat){
+
+                                    echo '<li class="ui-menu-item level1"><a href="'.$cat['url'].'" style="font-weight: 600;color: #696969;margin-top: 0">'.$cat['name'].'</a></li>';
+
+                                }
+								?>
+
+
+			                      
+						   </ul>
+					</div>
+				</div>                    
+
+			</div>
+</li>
+        
+		<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('porto_custom_menu_before')->toHtml();?> 
+         <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('porto_custom_menu')->toHtml();?> 
+    </ul>
+    
+</nav>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Smartwave_Megamenu/js/sw_megamenu'
+    ], function ($) {
+        $(".sw-megamenu").swMegamenu();
+    });
+</script>
+<?php
+    } else {
+?>
+<?php $_menu = $block->getHtml('level-top', 'submenu', $columnsLimit); ?>
+
+<nav class="navigation sw-megamenu" role="navigation">
+    <ul mySidenav data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
+        <?php /* @escapeNotVerified */ echo $_menu; ?>
+    </ul>
+</nav>
+
+<?php
+    }
+?>
+<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('porto_homeslider_9')->toHtml();?>

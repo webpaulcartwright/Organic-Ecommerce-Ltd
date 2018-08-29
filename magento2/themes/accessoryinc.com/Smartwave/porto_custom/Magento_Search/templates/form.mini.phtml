@@ -1,0 +1,217 @@
+<?php
+/**
+ * Magedelight
+ * Copyright (C) 2017 Magedelight <info@magedelight.com>
+ *
+ * @category Magedelight
+ * @package Magedelight_Elasticsearch
+ * @copyright Copyright (c) 2017 Mage Delight (http://www.magedelight.com/)
+ * @license http://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author Magedelight <info@magedelight.com>
+ */
+?>
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+$helper = $this->helper('Magedelight\Elasticsearch\Helper\Data');
+$elasticSearchHelper = $this->helper('Magedelight\Elasticsearch\Helper\Elasticsearch');
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+$this->scopeConfig = $objectManager->create('\Magento\Framework\App\Config\ScopeConfigInterface');
+$storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+$this->_storeManager = $objectManager->create('\Magento\Store\Model\StoreManagerInterface');
+$store = $this->_storeManager->getStore();
+$store_id = $store->getId();
+$autoCompleteLimit = $this->scopeConfig->getValue('elasticsearch/autocomplete/limit', $storeScope) ? $this->scopeConfig->getValue('elasticsearch/autocomplete/limit', $storeScope) : 3;
+
+$noResultTemplate = $this->scopeConfig->getValue('elasticsearch/autocomplete/noresult_template', $storeScope) ? $this->scopeConfig->getValue('elasticsearch/autocomplete/noresult_template', $storeScope) : '<span>No Result Found..</span>';
+
+$isDisplayProducts = (int) $this->scopeConfig->getValue('elasticsearch/indexer/display_product', $storeScope);
+
+$productSearchLimit = $elasticSearchHelper->getProductLimit();
+$searchableAttributes = $elasticSearchHelper->getAttributesToSearch();
+
+$isDisplayCategories = $this->scopeConfig->getValue('elasticsearch/category/display_category', $storeScope);
+$categorySearchLimit = $this->scopeConfig->getValue('elasticsearch/category/category_limit', $storeScope) ? $this->scopeConfig->getValue('elasticsearch/category/category_limit', $storeScope) : 3;
+
+$isDisplayCms = $this->scopeConfig->getValue('elasticsearch/cms/display_cms', $storeScope);
+$cmsSearchLimit = $this->scopeConfig->getValue('elasticsearch/cms/cms_limit', $storeScope) ? $this->scopeConfig->getValue('elasticsearch/cms/cms_limit', $storeScope) : 3;
+$indexPrefix = $elasticSearchHelper->getIndexPrefix();
+$view = $this->scopeConfig->getValue('elasticsearch/autocomplete/autosuggest_view', $storeScope);
+
+$placeholderImage = $block->getViewFileUrl('Magento_Catalog::images/product/placeholder/image.jpg');
+
+$searchType = $this->scopeConfig->getValue('elasticsearch/general/search_type', $storeScope);
+
+$elasticHelper = $objectManager->create('\Magedelight\Elasticsearch\Helper\Elasticsearch');
+$languangeCode = $elasticHelper->getLanguageCodeByStore($store);
+
+$helper1 = $this->helper('Magento\Search\Helper\Data');
+
+  function array_msort($array, $cols)
+    {
+        $colarr = array();
+        foreach ($cols as $col => $order) {
+            $colarr[$col] = array();
+            foreach ($array as $k => $row) {
+                $colarr[$col]['_' . $k] = strtolower($row[$col]);
+            }
+        }
+        $eval = 'array_multisort(';
+        foreach ($cols as $col => $order) {
+            $eval .= '$colarr[\'' . $col . '\'],' . $order . ',';
+        }
+        $eval = substr($eval, 0, -1) . ');';
+        eval($eval);
+        $ret = array();
+        foreach ($colarr as $col => $arr) {
+            foreach ($arr as $k => $v) {
+                $k = substr($k, 1);
+                if (!isset($ret[$k])) $ret[$k] = $array[$k];
+                $ret[$k][$col] = $array[$k][$col];
+            }
+        }
+        return $ret;
+
+    }
+
+?>
+<style>
+
+    select{
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
+    }
+
+    .optionGroup {
+        font-weight: 600;
+
+    } 
+
+</style>
+<div class="block block-search">
+    <div class="block block-title"><strong><?php /* @escapeNotVerified */ echo __('Search'); ?></strong></div>
+    <div class="block block-content">
+        <form class="form minisearch aaa" id="search_mini_form" action="<?php /* @escapeNotVerified */ echo $helper->getResultUrl() ?>" method="get">
+            <div class="field search">
+                <label class="label" for="search" data-role="minisearch-label">
+                    <span><?php /* @escapeNotVerified */ echo __('Search'); ?></span>
+                </label>
+                <div class="control">
+                    <input id="search"
+                           data-mage-init='{"autocomplete":{
+                                "formSelector":"#search_mini_form",
+                                "minSearchLength" : "<?php echo $autoCompleteLimit; ?>",
+                                "noResultTemplate" : "<?php echo $noResultTemplate; ?>",
+                                "isDisplayProducts" : "<?php echo $isDisplayProducts; ?>",
+                                "productSearchLimit" : "<?php echo $productSearchLimit; ?>",
+                                "isDisplayCategories" : "<?php echo $isDisplayCategories; ?>",
+                                "categorySearchLimit" : "<?php echo $categorySearchLimit; ?>",
+                                "isDisplayCms" : "<?php echo $isDisplayCms; ?>",
+                                "cmsSearchLimit" : "<?php echo $cmsSearchLimit; ?>",
+                                "storeId" : "<?php echo $store_id; ?>",
+                                "url":"<?php echo $elasticSearchHelper->getClientUrl()?>",
+                                "indexPrefix" : "<?php echo $indexPrefix ?>",
+                                "view" : "<?php echo $view; ?>",
+                                "languangeCode" : "<?php echo $languangeCode; ?>",
+                                "serversideUrl" : "<?php echo $this->getUrl('elasticsearch/index/autosearch') ?>",
+                                "placeholderImage" : "<?php echo $placeholderImage; ?>",
+                                "destinationSelector":"#search_autocomplete"}
+                           }'
+                           type="text"
+                           name="<?php /* @escapeNotVerified */ echo $helper->getQueryParamName() ?>"
+                           value="<?php /* @escapeNotVerified */ echo $helper->getEscapedQueryText() ?>"
+                           placeholder="<?php /* @escapeNotVerified */ echo __('Search entire store here...'); ?>"
+                           class="input-text"
+                           maxlength="<?php /* @escapeNotVerified */ echo $helper->getMaxQueryLength();?>"
+                           role="combobox"
+                           aria-haspopup="false"
+                           aria-autocomplete="both"
+                           autocomplete="off"/>
+                    <?php $class = ($view == 'mega')?'three-columns':'one-column';?>
+					<select id="cat" name="cat">  
+					<option value="">All Categories</option>
+					
+					              <?php
+									$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+									$catId = 2; // Parent Category ID
+									$subcategory = $objectManager->create('Magento\Catalog\Model\Category')->load($catId);
+									$subcats = $subcategory->getChildrenCategories();
+									$_helper = $this->helper('Magento\Catalog\Helper\Output');
+
+									$allCategories = [];
+									
+									?>
+
+
+								
+								<?php
+
+
+								foreach ($subcats as $subcat) {
+									
+								$subcatid = $subcat->getId();
+								$subcatname = $subcat->getName();
+
+
+								//echo '<option value="'.$subcatid.'">'.$subcatname.'</option>';
+								$_categorysubchild = $objectManager->create('Magento\Catalog\Model\Category')->load($subcat->getId());
+								$subcatschild = $_categorysubchild->getChildrenCategories();
+								$_outputhelper = $this->helper('Magento\Catalog\Helper\Output');
+
+
+                                 $subCategories = [];
+								 foreach ($subcatschild as $subcatchild) {
+
+								//echo '<option value="'.$subcatchild->getId().'">'.$subcatchild->getName().'</option>';
+
+                                     array_push($subCategories,['name' => $subcatchild->getName(),'id' => $subcatchild->getId()]);
+
+								 }
+
+                                    $subCategories = array_msort($subCategories,['name'=> SORT_ASC]);
+
+                                    array_push($allCategories,['name' => $subcatname,'id' => $subcatid,'subcategories' => $subCategories]);
+
+
+
+								}
+
+
+
+                               $allCategories = array_msort($allCategories,['name'=>SORT_ASC]);
+
+								foreach($allCategories as  $cat){
+
+                                    echo '<option class="optionGroup"  value="'.$cat['id'].'">'.$cat['name'].'</option>';
+                                    if(!empty($cat['subcategories'])){
+                                        foreach ($cat['subcategories'] as $sc){
+
+                                            echo '<option  class="optionChild" value="'.$sc['id'].'">&nbsp;&nbsp;'.$sc['name'].'</option>';
+
+                                        }
+                                    }
+
+
+
+
+                                }
+								?>	     
+                       
+                      </select>   
+                    <div id="search_autocomplete" class="search-autocomplete <?php echo $class; ?>"></div>
+                    <?php echo $block->getChildHtml() ?>
+                </div>
+            </div>
+            <div class="actions">
+                <button type="submit"
+                        title="<?php echo $block->escapeHtml(__('Search')) ?>"
+                        class="action search">
+                    <span><?php /* @escapeNotVerified */ echo __('Search'); ?></span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
