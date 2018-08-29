@@ -1,0 +1,190 @@
+/*Home Slider*/
+.home-slider{
+    .slider-img-height{
+        min-height: 980px;
+        min-height: 100vh;
+    }
+    .carousel-indicators li{
+        background-color: rgba($white, 0.5);
+        border-color: rgba($white, 0.5);
+        &.active{
+            background-color: rgba($white, 0.8);
+            border-color: rgba($white, 0.8);
+        }
+    }
+    .slider-content{
+        position: absolute;
+        text-align: center;
+        color: $white;
+        left: 0;
+        right: 0;
+        //top: 0;
+        bottom: 325px;
+    }
+    .slider-menu{
+        padding-top: 60px;
+    }
+    @include bp(XS){
+        .slider-logo-holder{
+            padding: 0 60px;
+        }
+        .slider-menu{
+            padding-top: 30px;
+        }
+        .slider-content{
+            bottom: 100px;
+        }
+    }
+}
+.slider-menu-ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    &>li{
+        display: inline-block;
+        vertical-align: text-top;
+        margin: 0 15px;
+        &:hover{
+            .slider-menu-content{
+                opacity: 1;
+                visibility: visible;
+                height: auto;
+                min-height: 325px;
+                padding: 10px 0 0;
+                z-index: 3;
+            }
+            .slider-menu-img{
+                opacity: 1;
+            }
+            h5{
+                border-bottom: 5px solid #eeedee;
+            }
+            .slider-menu-search{
+                background-size: 25px;
+                height: 44px;
+                border-bottom: 5px solid #eeedee;
+            }
+        }
+        &>a{
+            padding: 0 30px;
+            display: block;
+            color: $white;
+            font-weight: normal;
+        }
+    }
+    
+    @include bp(S){
+        margin: 0 auto;
+        width: 70%;
+        &>li{
+            display: block;
+        }
+    }
+    .slider-menu-search{
+        background-image: url(../img/icons/magnifier.svg);
+        background-repeat: no-repeat;
+        background-size: 27px;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        margin: 0 auto;
+    }
+    h5{ 
+        padding-bottom: 15px;
+        border-bottom: 5px solid transparent;
+    }
+}
+.slider-single-button .btn{
+    padding: 15px 35px;
+    margin-top: 60px;
+}
+.slider-menu-content{
+    position: absolute;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    min-height: 0px;
+    padding: 30px 15px;
+    text-align: left;
+    background-color: rgba($white, 0.95);
+    @extend %light-border;
+    @extend %transition;
+    @extend %box-shadow-dark;
+    ul{
+        list-style: none;
+        padding: 0;
+        li{
+            @extend %li-a-effect;
+        }
+        @include bp(S){
+            @include add-border(1px, $light-color, bottom);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+    }
+    .slider-menu-img{
+        width: 100%;
+        min-height: 240px;
+        max-height: 240px;
+        opacity: 0;
+        overflow: hidden;
+        margin-bottom: 25px;
+        @extend %light-border;
+        @extend %transition;
+        &:hover{
+            @extend %image-box-shadow-dark;
+        }
+    }
+    .slider-search{
+        min-height: 50px;
+        vertical-align: top;
+        padding: 13px;
+        &.btn{
+            padding: 17px 13px;
+        }
+    }
+}
+
+.slider-logo-holder{
+    text-align: center;
+    img{
+        display: inline-block;
+    }
+}
+@media screen and (min-width: 769px){
+    .slider-menu-content input.slider-search{
+        width: 100%;
+        padding-right: 190px;
+    }
+    .slider-search.btn{
+        position: absolute;
+        right: 0;
+    }
+}
+@media screen and (max-width: 768px){
+    .slider-search{
+        width: 100%;
+        margin-bottom: 25px
+    }
+}
+.slide-down-icon{
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    left: 0;
+    text-align: center;
+    @extend %transition;
+    &:hover{
+        img{max-width: 42px;}
+    }
+    a{
+        display: inline-block;
+    }
+    img{
+        max-width: 40px;
+        max-height: 40px;
+    }
+}

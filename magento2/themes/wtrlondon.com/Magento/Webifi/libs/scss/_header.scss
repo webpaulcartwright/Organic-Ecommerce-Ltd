@@ -1,0 +1,97 @@
+.top-bar {
+    background-color: $light-bg-color;
+    min-height: 36px;
+    max-height: 36px;
+    &.nav-sticky { 
+        @extend %box-shadow-dark;
+    }
+    small {
+        color: $primary-color;
+        display: inline-block;
+        padding: 10px;
+    }
+}
+.top-bar-2{
+    .currency-select{
+        &>span{
+            padding: 7px 30px 7px 0;
+        }
+        .custom-dropdown-list {
+            left: -15px;
+            right: -15px;
+        }
+    }
+}
+.myAccount {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+        display: inline-block;
+        margin: 0;
+        a {
+            padding: 6px 10px;
+            display: block;
+        }
+        &:last-child {
+            a {
+                color: $primary-color;
+                padding: 5px 0;
+            }
+        }
+    }
+    img {
+        max-width: 25px;
+        padding-right: 5px;
+        margin-top: -5px;
+    }
+}
+.inner-page-menu{
+    .slider-logo-holder{
+        padding: 40px 0;
+    }
+    .slider-menu-ul{
+        text-align: center;
+        &>li{
+            &>a{
+                color: $default-hover-color;
+            }
+            &:hover h5, &:hover .slider-menu-search{
+                @include add-border(5px, $primary-color, bottom);
+            }
+        }
+        .slider-menu-search{
+            background-image: url(../img/icons/magnifier-primary.svg);
+        }
+    }
+}
+.header-breadcrumb{
+    @include add-border(1px, $light-color, top);
+    padding-top: 20px;
+    margin-bottom: 20px;
+    .breadcrumb{
+        padding: 0;
+        margin: 0;
+        background-color: transparent;
+        border-radius: 0;
+        font-size: 14px;
+    }
+}
+
+@media screen and (min-width: 769px){
+    .top-bar.nav-sticky + .top-bar-2{
+        position: fixed;
+        left: 0;
+        right: 0;
+        z-index: 11;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .top-bar small{
+        padding: 10px 0;
+    }
+    .custom-dropdown.currency-select{
+        min-width: 160px;
+    }
+}

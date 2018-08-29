@@ -1,0 +1,67 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+   $latest_title = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('webifi_section/webifi_catelog/latest_title');
+   $latest_view_all = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('webifi_section/webifi_catelog/latest_view_all_text');
+   $latest_view_all_link = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('webifi_section/webifi_catelog/latest_view_all_link');
+    
+?>
+<?php if (($_products = $block->getProductCollection()) && $_products->getSize()): ?>
+<?php $suffix = $block->getNameInLayout(); ?>
+<div class="container">
+<div class="row">
+<div class="col4 p-t-20 p-b-60">
+            <div class="section-title m-b-20">
+                <p><?php echo $latest_title; ?></p>
+                <a href="<?php echo $latest_view_all_link; ?>" class="view-all"><?php echo $latest_view_all; ?></a>
+            </div>
+     <?php foreach ($_products->getItems() as $_product): ?>
+            <div class="col-md-3 col-sm-6">
+                <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>" class="col-4-content">
+                   
+                         <?php //echo $block->getImage($_product, 'product_page_main_image')->toHtml(); ?>
+                        
+<!--                            <img src="img/latest2.jpg" alt="IMG" class="">-->
+                           <?php
+
+        $product = $objectManager->create('Magento\Catalog\Model\Product')->load($_product->getId());        
+   $images = $product->getMediaGalleryImages(); 
+   $i=1;
+   if(!empty($images)):
+       ?>
+                        
+       <?php 
+      foreach($images as $child):
+          if($i>2){
+              break;
+          }
+          $image_list[]=$child->getUrl();
+          
+     $i++; endforeach;?>
+  <?php endif; //endif;  ?> 
+   <p class="img-holder background-image flip-front">
+         <img src="<?php echo $image_list[0]; ?>" alt='<?php echo $_product->getName(); ?>' >
+         <span class="img-holder background-image flip-back">
+        <img src="<?php echo isset($image_list[1])?$image_list[1]:$image_list[0]; ?>" alt='<?php echo $_product->getName(); ?>' >
+        </span>
+ <?php unset($image_list); ?>
+    
+                    </p>
+                </a>
+                <span class="col-4-details home-latest-detail">
+                    <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>"><h6><?php echo $_product->getName(); ?></h6></a>
+                  <p>£<?php /* @escapeNotVerified */ echo $_product->getPriceInfo()->getPrice('final_price','')->getValue(); ?></p>
+                </span><div class="clearfix"></div>
+            </div>
+    <?php endforeach; ?>
+           
+            <div class="clearfix"></div>
+        </div>
+</div>
+</div>
+<?php endif; ?>

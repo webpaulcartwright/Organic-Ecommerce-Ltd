@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php
+$_product = $block->getProduct();
+$product_url = $_product->getProductUrl();
+$product_name = $_product->getName();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $objectManager->create('Magento\Catalog\Model\Product')->load($_product->getId());
+$images = $_product->getMediaGalleryImages();
+$i = 1;
+if (!empty($images)):
+    ?>
+
+    <?php
+    foreach ($images as $child):
+        if ($i > 1) {
+            break;
+        }
+        $image_list[] = $child->getUrl();
+
+        $i++;
+    endforeach;
+    if(count($image_list)==0)
+        $image_list[]=$block->getImage($_product, 'category_page_grid')->getImageUrl();
+endif;
+?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<div class="product-share">
+    <h6 class="text-primary">SHARE</h6>
+    <ul class="social-icons">
+        <li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $product_url; ?>" title="Share on Facebook" target="_blank" class="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+        <li><a href="http://twitter.com/home?status=<?php echo $product_name . ' ' . $product_url; ?>" title="Share on Twitter" target="_blank" class="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=<?php echo $product_url; ?>&title=<?php echo $product_name; ?>"  target="_blank" class="linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+        <li><a href="https://pinterest.com/pin/create/button/?url=<?php echo $product_url ?>&media=<?php echo $image_list[0]; ?>&description=<?php echo $product_name ?>" target="_blank" class="pinterest"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+    </ul>
+</div>

@@ -1,0 +1,58 @@
+<?php
+
+$objectManager   = \Magento\Framework\App\ObjectManager::getInstance();
+$currentCategory = $this->getCurrentCategory();
+$categoryHelper  = $this->getCategoryHelper();
+$currentProduct  = $this->getCurrentProduct();
+
+if ( isset( $currentCategory ) && ! $currentProduct ) {
+	?>
+    <div class="col-md-10 col-md-offset-2 sub-categories">
+        <div class="row">
+            <div class="innerPage-Title text-center">
+				<?php
+				if ( isset( $_GET['cat'] ) ) {
+
+					$filter_category_name = $objectManager->create( 'Magento\Catalog\Model\Category' )->load( $_GET['cat'] )->getName();
+					?>
+
+                    <h1 style="
+    font-size: 1.333em;
+    font-family: effra-bold;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: #a9703d;
+"><?php echo $filter_category_name; ?></h1>
+				<?php } else { ?>
+                    <h1 style="
+    font-size: 1.333em;
+    font-family: effra-bold;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    color: #a9703d;
+"><?php echo $currentCategory->getName(); ?></h1>
+                    <div class="category-description">
+	                    <?php echo $currentCategory->getDescription(); ?>
+                    </div>
+				<?php } ?>
+                <!--<ul class="filter-tags">
+                    <?php
+				/*  if ($subCategories = $currentCategory->getChildrenCategories())
+				 {
+					 foreach ($subCategories as $subCategory) { */
+				?>
+                            <li><a href="<?php //echo $categoryHelper->getCategoryUrl($subCategory)
+				?>"><?php //echo $subCategory->getName();
+				?></a></li>
+                    <?php/* 
+                            }
+                        } */
+
+				?>
+                        </ul>-->
+            </div>
+        </div>
+    </div>
+	<?php
+}
+?>

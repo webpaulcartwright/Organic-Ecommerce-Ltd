@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<h6>NEWSLETTER</h6>
+<div class="footer-newsletter">
+    <form class="form subscribe"
+          novalidate
+          action="<?php /* @escapeNotVerified */
+	      echo $block->getFormActionUrl() ?>"
+          method="post"
+          data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+          id="newsletter-validate-detail">
+        <input name="email" type="email" id="newsletter"
+               placeholder="<?php /* @escapeNotVerified */
+		       echo __( 'Sign up for our latest news.' ) ?>"
+               data-validate="{required:true, 'validate-email':true}"/>
+        <div class="consent-wrap">
+            <input id="newsletter_concent_footer" type="checkbox" name="consent" class="newsletter_concent">
+            <label for="newsletter_concent_footer">
+                Please keep me up to date with special offers and news from WtR by email (you can unsubscribe at any time). <i> <br><br> By submitting my
+                    information I agree to the WtR <a href="https://wtrlondon.com/terms-conditions">Terms &amp; Conditions</a>, <a
+                            href="https://wtrlondon.com/privacy-policy">Privacy Policy</a> &amp; <a
+                            href="https://wtrlondon.com/cookie-policy">Cookie Policy</a></i>
+            </label>
+
+        </div>
+        <button class=" btn btn-transparent btn-lg m-tb-20 action subscribe primary" title="Subscribe" type="submit"
+                onClick="ga('send', 'event', { eventCategory: 'newsletter', eventAction: 'submit'});">
+            <span>SUBSCRIBE</span>
+        </button>
+    </form>
+</div>

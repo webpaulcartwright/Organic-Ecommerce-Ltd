@@ -1,0 +1,78 @@
+%text-white-a{
+    color: $white;
+    &:hover, &:focus{
+        color: #cacaca;
+        outline: none;
+    }
+}
+%text-primary-a{
+    color: $primary-color;
+    &:hover, &:focus{
+        color: lighten($primary-color, 5%);
+        outline: none;
+    }
+}
+%display-flex{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+%display-flex-justify-center{
+    justify-content: center;
+    -webkit-box-pack: center; /* justify-content */
+    -webkit-align-items: center; /* Safari 7.0+ */
+    align-items: center;
+}
+%transition{
+    @include transition();
+}
+
+%arrow-after{
+    &:after{
+        content: "\f105";
+        font-family: 'FontAwesome';
+        padding-left: 10px;
+        color: $primary-color;
+        font-size: 22px;
+    }
+}
+
+%box-shadow-light{
+    -webkit-box-shadow: 7px 7px 13px -3px rgba(255,255,255,0.3);
+    -moz-box-shadow: 7px 7px 13px -3px rgba(255,255,255,0.3);
+    box-shadow: 7px 7px 13px -3px rgba(255,255,255,0.3);
+}
+%box-shadow-dark{
+    -webkit-box-shadow: 7px 7px 13px -3px rgba(0,0,0,0.2);
+    -moz-box-shadow: 7px 7px 13px -3px rgba(0,0,0,0.2);
+    box-shadow: 7px 7px 13px -3px rgba(0,0,0,0.2);
+}
+%image-box-shadow-dark{
+    @include transform_scale(1.02);
+    -webkit-box-shadow: 7px 7px 13px -3px rgba(0,0,0,0.2);
+    -moz-box-shadow: 7px 7px 13px -3px rgba(0,0,0,0.2);
+    box-shadow: 7px 7px 13px -3px rgba(0,0,0,0.2);
+}
+%image-box-shadow-light{
+    @include transform_scale(1.02);
+    -webkit-box-shadow: 7px 7px 13px -3px rgba(255,255,255,0.3);
+    -moz-box-shadow: 7px 7px 13px -3px rgba(255,255,255,0.3);
+    box-shadow: 7px 7px 13px -3px rgba(255,255,255,0.3);
+}
+
+%dark-border{
+    @include add-border(1px, rgba($dark-color, 0.9), all);
+}
+%light-border{
+    @include add-border(1px, rgba($light-color, 0.2), all);
+}
+%transparent-border{
+    @include add-border(0, transparent, all);
+}
+
+%li-a-effect{
+    &:hover{
+        letter-spacing: 2px;
+    }
+}

@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php $url = $block->getReviewsUrl() . '#reviews'; ?>
+<?php $urlForm = $block->getReviewsUrl() . '#review-form'; ?>
+<input type="hidden" name="review_count" value="<?php echo $block->getReviewsCount(); ?>" >
+<?php if ($block->getReviewsCount()): ?>
+    <?php $rating = $block->getRatingSummary(); ?>
+    <div class="review-container <?php echo!$rating ? ' no-rating' : '' ?>" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+    <?php if ($rating): ?>
+
+            <h5 class="text-primary"><?php /* @escapeNotVerified */ echo __('CUSTOMER REVIEWS') ?></h5>
+            <div class="customer-review pull-left p-tb-20">
+                <div class="rating-summary rate-product-stars">
+
+                    <div class="rating-result" title="<?php /* @escapeNotVerified */ echo $rating; ?>%">
+                        <span style="width:<?php /* @escapeNotVerified */ echo $rating; ?>%"><span><span itemprop="ratingValue"><?php /* @escapeNotVerified */ echo $rating; ?></span>% of <span itemprop="bestRating">100</span></span></span>
+                    </div>
+                    <span class="p-l-10">Based on <?php /* @escapeNotVerified */ echo $block->getReviewsCount() ?></span>&nbsp;<span><?php /* @escapeNotVerified */ echo($block->getReviewsCount() == 1) ? __('Review') : __('Reviews') ?></span>
+                </div>
+            </div>
+            <a class="btn btn-transparent write-a-review-button pull-right" href="javascript:void(0);"><?php /* @escapeNotVerified */ echo __('WRITE A REVIEW') ?></a>
+            <div class="clearfix"></div>
+
+
+
+
+    <?php endif; ?>
+
+    </div>
+
+
+
+<?php elseif ($block->getDisplayIfEmpty()): ?>
+    <div class="review-container empty">
+        <div class="customer-review pull-left p-tb-20">
+   <?php /* @escapeNotVerified */ echo __('Be the first to review this product') ?>
+        </div>
+         <a class="btn btn-transparent write-a-review-button pull-right" href="javascript:void(0);"><?php /* @escapeNotVerified */ echo __('WRITE A REVIEW') ?></a>
+            <div class="clearfix"></div>
+    </div>
+<?php endif; ?>

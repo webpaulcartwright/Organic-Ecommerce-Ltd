@@ -1,0 +1,566 @@
+.column.main .product-item {
+	padding-left: 0px;
+}
+.main-container-products .product-item {
+	width: 250px;
+}
+.custom-related-product .main-container-products .product-item {
+	margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+	box-shadow: none;
+    border: none;
+}
+.page-main .column.main {
+	width: 78% !important;
+}
+.page-main .columns {
+	background: #fbfaf9;
+}
+.custom-product-image img {
+	height: 95%;
+	border: 20px solid white;
+}
+.custom-product-image .img-desc {
+	text-align: center;
+	font-size: 10px;
+	margin-top: 0px;
+	background: white;
+	padding: 10px;
+}
+.page-main .sidebar-main {
+	width: 22% !important;
+}
+.custom-related-product .main-container-products .product-item .product-item-info .product-footer .product-add-to-cart {
+	height: 47px;
+	width: 140px;
+	margin-left: 5px;
+}
+.custom-related-product .main-container-products .product-item .product-item-info .product-footer .product-add-to-cart form button {
+	height: 100%;
+}
+.custom-related-product .main-container-products .product-item .product-item-info .product-footer .product-add-to-cart form {
+	height: 100%;
+}
+.custom-related-product .main-container-products .product-item .product-item-info .product-footer .product-review {
+	
+width: 43%;
+	
+border-right: 0px;
+}
+.custom-related-product .main-container-products .product-item .product-item-info .product-footer {
+	height: 48px;
+}
+.custom-related-product .main-container-products .product-item .product-item-info .product-header {
+	background: #fdefe7;
+    border-radius: 0 25px 0 0;
+}
+.custom-related-product .main-container-products .product-item .product-item-info .product-content .product-price {
+	background: #fdefe7;
+	min-height: 265px;
+}
+.custom-related-product .main-container-products .product-item .product-item-info .product-footer {
+	background: #fdefe7;
+}
+.custom-related-product .tasty_indeed span {
+	font-size: 20pt;
+	line-height: 40px;
+	font-family: 'SantBoldThrDMO';
+}
+.custom-related-product .tasty_indeed {
+	margin-bottom: 20px;
+}
+.product-top-description {
+	text-align: center;
+    padding-top: 20px;
+	padding-bottom: 70px;
+	background: #fbfaf9;
+}
+.product-top-description div {
+	padding: 0 42px;
+    font-size: 11pt;
+	height: 60px;
+    border-right: 1px solid #c4b39c;
+}
+.product-top-description div span {
+	font-family: Museo;
+}
+.bottom-related-product .main-container-products .product-item {
+	margin: 0px;
+	width: 249px;
+}
+.bottom-related-product {
+    padding-bottom: 27px;
+    background: #fff;
+    padding-top: 25px;
+    border-radius: 0 60px 0 0;
+    float: left;
+    margin-bottom: 20px;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-content .product-price .price-final_price .special-price .price {
+	font-size: 20pt;
+}
+.bottom-related-product .introduction {
+	text-align: center;
+    font-size: 16pt;
+    padding-top: 20px;
+    color: #e85c0f;
+    padding-bottom: 10px;
+    font-weight: 600;
+}
+.column.main .product-info-main {
+	float: none;
+    display: inline-block;
+	width: 78%;
+}
+.column.main .product.media {
+	float: none;
+    display: inline-block;
+	width: 22%;
+}
+.bottom-related-product .main-container-products .product-item {
+	box-shadow: none;
+    border: 0px;
+	padding: 20px;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-footer .product-add-to-cart {
+	border-left: 0px;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-content .product-price {
+	width: 100%;
+	border: 0px;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-content {
+	padding-bottom: 230px;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-header {
+	width: 55%;
+    float: left;
+	padding: 0px;
+	border: 0px;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-content .product-image {
+	width: 45%;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-content .product-price .product-short-description {
+	border: 0px;
+    padding: 10px 0 0 0;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-content .product-price .product-weight {
+	border: 0px;
+    padding: 0 0 10px 0;
+}
+.bottom-related-product .product-footer {
+	height: 35px;
+	padding: 10px 0px;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-header .product-name {
+	border-bottom: 1px solid #e8e2d9;
+	overflow: hidden;
+	max-height: none;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-content .product-price .price-final_price {
+	padding-left: 0px;
+}
+
+.custom-product-image .product-image-container {
+	width: 100% !important;
+    height: 700px;
+}
+.custom-product-image {
+	width: 22%;
+    float: left;
+	text-align: center;
+	margin-bottom: 30px;
+	height: 700px;
+	position: relative;
+}
+.julius_product {
+	width: 78%;
+	margin-bottom: 30px;
+	float: left;
+	background: #fbfbe6;
+	height: 700px;
+}
+.custom-product-image .product-image-wrapper {
+	padding-bottom: 700px !important;
+}
+.custom-product-image .product-image-photo {
+	width: 100%;
+    height: 100%;
+}
+.julius_product .product-custom-blog .title span {
+	font-family: 'SantBoldThrDMO', 'SantLine', 'SantLineTwo', 'SantBoldDMO';
+    font-size: 20pt;
+}
+.julius_product .product-custom-blog .first .title span {
+	color: #918500;
+	position: relative;
+}
+.julius_product .product-custom-blog .second .title span {
+	color: #9a141c;
+}
+.julius_product .product-custom-blog .third .title span {
+	color: #e85d11;
+}
+.main-container-products .product-item .product-item-info .product-content .product-price .price-final_price .old-price {
+	margin-bottom: 10px;
+	text-decoration: none;
+}
+.bottom-related-product .product-item .product-reviews-summary .rating-summary .count {
+	text-align: left;
+    padding: 0 0 0 8px;
+}
+.bottom-related-product .product-item .product-reviews-summary .rating-summary {
+	left: 0px;
+}
+.bottom-related-product .rating-summary .rating-result {
+	margin-left: 0px;
+	height: 23px;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-footer .product-add-to-cart form button:before {
+	width: 32px;
+    height: 32px;
+	top: 4px;
+    left: 8px;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-footer .product-add-to-cart form button div {
+	padding-left: 30px;
+    font-size: 14pt;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-footer .product-review {
+	height: 40px;
+	border-right: 0px;
+}
+.bottom-related-product .main-container-products .product-item .product-item-info .product-footer .product-add-to-cart form button {
+	height: 40px;
+}
+.julius_product .product-custom-blog {
+	padding: 15px;
+	font-size: 13px;
+	color: #505050;
+}
+.julius_product .product-description {
+	width: 70%;
+	display: inline-block;
+	padding: 20px 20px 0px 0px;
+	border-right: 1px solid #bca98d;
+	height: 325px;
+}
+.julius_product .product-detail {
+	margin-left: 30px;
+	margin-bottom: 25px;
+	border-bottom: 1px solid #bca98d;
+}
+.julius_product .product-detail .name span {
+	font-size: 18pt;
+    font-weight: 600;
+}
+.julius_product .product-detail .name div span {
+	font-size: 11pt;
+}
+.julius_product .product-detail .short-description {
+	margin: 20px 0px 0px;
+	font-size: 11pt;
+	line-height: 2em;
+	font-weight: 600;
+	max-height: 400px;
+	min-height: 115px;
+}
+.julius_product .product-detail .description {
+	font-size: 14px;
+	margin-bottom: 70px;
+	line-height: 2em;
+	margin-top: 40px;
+	min-height: 90px;
+}
+.julius_product .product-reviews-summary .rating-summary {
+	left: 0px;
+}
+.julius_product .rating-summary .rating-result {
+	margin-left: 0px;
+	display: inline-block;
+	vertical-align: bottom;
+}
+.julius_product .rating-summary .recommendation {
+	display: inline-block;
+	vertical-align: bottom;
+	cursor: pointer;
+}
+.julius_product .rating-summary .first-note {
+	display: inline-block;
+	vertical-align: bottom;
+	cursor: pointer;
+}
+.julius_product .rating-summary .parts {
+	display: inline-block;
+	vertical-align: bottom;
+	cursor: pointer;
+}
+.custom-review {
+	position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+	display: flex;
+	align-items: center;
+    height: 100%;
+}
+.custom-review .custom-review-block {
+	background: #fff;
+	margin: 0 auto;
+	padding: 50px 70px 60px 70px;
+	position: relative;
+}
+.custom-review .custom-review-block .close-button {
+	position: absolute;
+    right: 0px;
+    top: 0px;
+    font-size: 20px;
+	font-weight: bold;
+    width: 35px;
+    text-align: center;
+    padding: 5px;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+}
+.custom-review .custom-review-block span, .custom-review .custom-review-block p, .custom-review .custom-review-block li {
+	color: #000;
+}
+
+.custom-review .fieldset>.field {
+    margin: 0 0 20px;
+    box-sizing: border-box;
+    margin: 0 0 29px;
+    /* display: grid; */
+    text-align: left;
+    display: grid;
+}
+
+.display_none {
+	display: none;
+}
+.julius_product .rating-summary .first-note:before {
+	content: '\0000a0\0000a0|\0000a0\0000a0';
+    display: inline-block;
+}
+.julius_product .rating-summary .parts:before {
+	content: '\0000a0\0000a0|\0000a0\0000a0';
+    display: inline-block;
+}
+.julius_product .rating-summary div {
+	color: #e85c0f;
+	font-size: 10pt;
+}
+.julius_product .product-add-to-cart {
+	float: right;
+	width: 30%;
+	padding-top: 50px;
+	max-height: 260px;
+}
+.custom-product-image .wine-month {
+	position: absolute;
+    right: 6px;
+    top: 139px;
+    height: 120px;
+    width: 120px;
+	text-align: left;
+    font-family: 'SantBoldThrDMO';
+    padding-left: 13px;
+    padding-top: 31px;
+    border-radius: 100%;
+    background: url(../../images/cup.jpg) #e85c0f;
+    background-position-x: 80px;
+    background-position-y: 20px;
+    background-size: initial;
+    background-repeat: no-repeat;
+}
+.custom-product-image .wine-month .first {
+	display: block;
+    color: #fff;
+    font-size: 20pt;
+    height: 23px;
+}
+.custom-product-image .wine-month .second {
+	display: block;
+    color: #fff;
+    padding-left: 46px;
+    height: 1px;	
+}
+.custom-product-image .wine-month .third {
+	display: block;
+    color: #fff;
+    font-size: 20pt;
+}
+.julius_product .product-custom-blog .title {
+	margin-bottom: 20px;
+}
+.julius_product .product-add-to-cart .old-price {
+	font-size: 16pt;
+    padding-left: 20px;
+}
+.julius_product .product-add-to-cart .special-price {
+	font-size: 16pt;
+    margin-top: 20px;
+    padding-left: 20px;
+	font-family: 'SantBoldThrDMO';
+}
+.julius_product .product-add-to-cart .special-price .price {
+	font-family: Museo;
+	display: block;
+    font-size: 32pt;
+    color: #e85c0f;
+    font-weight: 600;
+}
+.julius_product .product-add-to-cart .per-bottle {
+	padding-left: 20px;
+	font-size: 16px;
+	margin-bottom: 68px;
+}
+.julius_product .old-price span:last-child:before {
+	position: absolute;
+    content: "";
+    left: -9px;
+    top: 48%;
+    right: -10px;
+    border-top: 1px solid;
+    border-color: inherit;
+    -webkit-transform: rotate(-24deg);
+    -moz-transform: rotate(-24deg);
+    -ms-transform: rotate(-24deg);
+    -o-transform: rotate(-24deg);
+    transform: rotate(-24deg);
+}
+.julius_product .product-add-to-cart .tier-price {
+	height: auto;
+}
+.julius_product .tier-price .tier-add-to-cart form {
+	display: inline-block;
+	vertical-align: middle;
+	float: right;
+    height: 100%;
+	position: relative;
+}
+.julius_product .tier-price .tier-add-to-cart form button {
+	height: 100%;
+    width: 100px;
+    background: transparent;
+    border: 0px;
+    color: #e85c0f;
+}
+.julius_product .tier-price .tier-add-to-cart form button div {
+	padding-left: 30px;
+	font-weight: 400;
+}
+.julius_product .tier-price .tier-add-to-cart form button:before {
+	content: '';
+    background: url('../../images/icon_yellow.png');
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-size: 100% 100%;
+    top: 5px;
+    left: 10px;
+}
+.julius_product .tier-price .tier-add-to-cart {
+	padding: 0px 0px 0px 20px;
+    border-top: 1px solid #bca98d;
+    height: 43px;
+}
+.julius_product .tier-price .tier-add-to-cart .qty {
+	line-height: 43px;
+	vertical-align: middle;
+	display: inline-block;
+	width: 60px;
+}
+.julius_product .tier-price .tier-add-to-cart .price {
+	line-height: 43px;
+	vertical-align: middle;
+	display: inline-block;
+}
+.julius_product .current-add-to-cart .product-add-to-cart {
+	width: 80%;
+    height: 44px;
+    float: none;
+    padding: 0px;
+	display: inline-block;
+}
+.julius_product .current-add-to-cart .product-add-to-cart form {
+	height: 100%;
+}
+.julius_product .current-add-to-cart .product-add-to-cart button {
+	height: 100%;
+    width: 100%;
+    border-radius: 0px;
+    background: #e85c0f;
+	position: relative;
+    border: 0px;
+    font-size: 16pt;
+    font-weight: 600;
+}
+.julius_product .current-add-to-cart .product-add-to-cart button:before {
+	content: '';
+    background: url(../../images/icon.png);
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    background-size: 100% 100%;
+    top: 2px;
+    left: 17px;
+}
+.julius_product .current-add-to-cart .product-add-to-cart button div {
+	padding-left: 40px;
+	font-family: Museo;
+}
+.julius_product .current-add-to-cart {
+	border-top: 1px solid #bca98d;
+}
+.julius_product .current-add-to-cart .qty {
+	display: inline-block;
+    height: 44px;
+    width: 20%;
+    float: right;
+	text-align: center;
+    line-height: 44px;
+    color: #fff;
+    background: #e85c0f;
+    font-size: 11pt;
+    font-weight: 400;
+    border-left: 1px solid #fff;
+}
+.julius_product .current-add-to-cart .qty input {
+	background: transparent;
+    border: 0px;
+    text-align: center;
+    font-size: 11pt;
+	height: 100%;
+    padding: 0px;
+}
+.category-product-list .products .product-item {
+	width: 234px;
+}
+.catalog-category-view .columns .sidebar.sidebar-main {
+	margin-top: 20px;
+	background: #fff;
+	width: 20% !important;
+	padding: 40px 20px;
+}
+.columns .sidebar.sidebar-main .filter-content .filter-options-content li a {
+	color: #493f35;
+}
+.columns .sidebar.sidebar-main .filter-options .filter-options-content {
+	padding: 0 0 25px;
+    margin: 0px;
+}
+.columns .sidebar.sidebar-main .filter-options .filter-options-title {
+	padding-top: 20px;
+    border-top: 1px solid #fbfaf9;
+} 
+
+.columns .column.main {
+    padding-bottom: 40px;
+    padding-top: 0px;
+}

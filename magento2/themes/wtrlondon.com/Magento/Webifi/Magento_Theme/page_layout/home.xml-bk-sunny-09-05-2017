@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="empty"/>
+
+      
+    <referenceContainer name="page.wrapper" htmlClass="main-container" htmlTag="div" htmlId="main-container" after="home.nav.header">
+        <container name="header.container" as="header_container" label="Page Header Container"  htmlTag="div" htmlClass="page-header" before="-" />
+
+      
+
+        <container name="footer-container" as="footer" before="before.body.end" label="Page Footer" htmlTag="footer" htmlClass="p-tb-60" />
+
+    </referenceContainer>
+    
+    <referenceContainer name="after.body.start">
+	<block class="Webifi\Modf\Block\Getallcat" name="tag.script.container" as='tag.script.container' template="Magento_Theme::html/header/tag1.phtml"  />
+        <container name="home.nav.header" as="home-nav-header" label="home nav header" htmlTag="div" htmlClass="nav_with_header test1" >
+            <block class="Webifi\Modf\Block\Getallcat" name="home.nav.block" template="Magento_Theme::html/header/home-nav-header.phtml" />
+        </container>
+    </referenceContainer>
+       
+    <referenceContainer name="header.container"  htmlClass="header_container" htmlTag="header">
+  <block class="Webifi\Modf\Block\Getallcat" name="home.slider.menu" template="Magento_Theme::html/header/home-slider-menu.phtml" >
+       <block class="Magento\Cms\Block\Block" name="home_slider" as="home_slider" template="widget/static_block/default.phtml">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">home-slider</argument>
+                            </arguments>
+                        </block>
+  </block>
+       
+    </referenceContainer>
+   
+   		   <referenceContainer name="columns"  htmlClass="columns container-fluid" htmlTag="header">
+		  		   </referenceContainer>
+</layout>

@@ -1,0 +1,135 @@
+<div class="main-container custom-related-product">
+<div class="tasty_indeed">
+	<span>Ook erg lekker</span>
+</div>
+
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ */
+?>
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+$listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
+
+$productCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\CollectionFactory');
+
+$_productCollection = $productCollection->create()->addAttributeToSelect('*')->load();
+
+?>
+<?php if (!count($_productCollection)): ?>
+    <div class="message info empty"><div><?php /* @escapeNotVerified */ echo __('We can\'t find Related Products.') ?></div></div>
+<?php else: 
+	$num = 0;
+	$pos = $block->getPositioned();
+?>
+    <div class="main-container-products">
+        <?php foreach ($_productCollection as $_product) { ?>
+		<?php $num++;
+			if ($num > 3) {
+				break;
+			}
+		?>
+		<li class="product-item">                
+			<div class="product-item-info">                
+				<div class="product-header">
+					<div class="product-name">
+						<a href="<?php echo $_product->getProductUrl();?>"><span><?php echo $_product->getName() . " " . $_product->getResource()->getAttribute('wine_year')->getFrontend()->getValue($_product);?></span></a>
+						<div><span><?php echo $_product->getWinehouse();?></span></div>
+					</div>
+				</div>
+				<div class="product-content">
+					<div class="product-price">
+						<div class="product-short-description">
+							<span><?php echo $_product->getWineArea();?></span>
+						</div>
+						<div class="product-weight">
+							<span><?php echo $_product->getWineVolume() . " cl.";?></span>
+						</div>
+						<div class="price-box price-final_price">
+							<div class="old-price">
+								<span>van</span>
+								<span><?php echo number_format((float)$_product->getPrice(), 2, '.', '');?></span>
+							</div>
+							<div class="special-price">
+								<span>voor</span>
+								<span class="price"><?php echo number_format((float)$_product->getSpecialPrice(), 2, '.', '');?></span>
+							</div>
+							<div class="per-bottle">
+								<span>per fles</span>
+							</div>
+						</div>
+					</div>
+					<div class="product-image">
+						<?php
+						$productImage = $block->getImage($_product, "category_page_grid");
+						
+						$_imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Catalog\Helper\Image');
+						$productImage = $_imageHelper->init($_product, 'small_image', ['type'=>'small_image'])->keepAspectRatio(true)->resize('200','300')->getUrl();
+						
+						?>
+						<a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>" class="product photo product-item-photo">
+							<?php //echo $productImage->toHtml(); ?><img src="<?php echo $productImage; ?>" />
+						</a>
+					</div>
+				</div>
+				<?php 
+				$ratingOb = $objectManager->create('Magento\Review\Model\Rating')->getEntitySummary($_product->getId());  
+				$ratings = 0;
+				if ($ratingOb->getCount() != 0)
+					$ratings = $ratingOb->getSum()/$ratingOb->getCount();
+				?>
+				<div class="product-footer">
+					<div class="product-reviews-summary product-review">
+						<div class="rating-summary">
+							<div class="rating-result">
+								<span style="width:<?php echo $ratings; ?>%"></span>
+							</div>
+							<div class="count"><?php echo $ratingOb->getCount() == 0 ? '0 reviews' : $ratingOb->getCount() . ' reviews'; ?></div>
+						</div> 
+					</div>
+					<div class="product-add-to-cart">
+						<?php if ($_product->isSaleable()) {?>
+						<?php $postParams = $block->getAddToCartPostParams($_product); 
+						$addToCartUrl =  $listBlock->getAddToCartUrl($_product);
+						?>
+						<form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post">
+							<input type="hidden" name="product" value="<?php echo $_product->getId(); ?>">
+							<input type="hidden" name="uenc" value="aHR0cHM6Ly9nb29kdGhpbmtpbmcubmwvY2hlY2tvdXQvY2FydC9hZGQvdWVuYy9hSFIwY0hNNkx5OW5iMjlrZEdocGJtdHBibWN1Ym13di9wcm9kdWN0LzI2Lw,,">
+							<?php echo $block->getBlockHtml('formkey')?>
+							<button type="submit" title="<?php echo 'Bestel'; ?>" class="action tocart primary">
+								<div><?php echo 'Bestel'; ?></div>
+							</button>
+						</form>
+						<?php }?>
+					</div>
+				</div>
+            </div>
+        </li>		
+		<?php }?>
+    </div>
+	<?php if (!$block->isRedirectToCartEnabled()) : ?>
+        <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {}
+            }
+        }
+        </script>
+    <?php endif; ?>
+<?php endif; ?>
+</div>

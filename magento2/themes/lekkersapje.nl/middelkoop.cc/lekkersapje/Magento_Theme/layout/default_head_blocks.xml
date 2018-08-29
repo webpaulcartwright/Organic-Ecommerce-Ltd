@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<css src="mage/calendar.css"/>
+		<css src="css/font-awesome.min.css"/>
+		<css src="css/bootstrap.min.css"/>
+		<css src="css/lekkersapje.css"/>
+        <css src="css/lekkersapje-mobile.css"/>
+        <css src="css/styles-m.css"/>
+        <css src="css/styles-l.css" media="screen and (min-width: 768px)"/>
+        <css src="css/print.css" media="print"/>
+    </head>
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Framework\View\Element\Js\Components" name="head.components" as="components" template="Magento_Theme::js/components.phtml" before="-"/>
+        </referenceContainer>
+		<referenceContainer name="main.content">
+			<referenceBlock name="sidebar.additional" remove="true" />
+		</referenceContainer>
+
+		<move element="form.subscribe" destination="home.post.block" before="home.post.social"/>
+
+		<referenceBlock name="breadcrumbs" remove="true" />
+    </body>
+</page>

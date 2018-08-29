@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php if ( $crumbs && is_array( $crumbs ) ) : ?>
+    <div class="header-breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
+				<?php
+                $bread_count = 0;
+                foreach ( $crumbs as $crumbName => $crumbInfo ) :
+	                $bread_count++;
+                    ?>
+                    <li class="item <?php /* @escapeNotVerified */
+					echo $crumbName . ( $crumbInfo['last'] ? "active" : "" ) ?>"
+                        itemprop="itemListElement" itemscope
+                        itemtype="http://schema.org/ListItem">
+
+						<?php if ( $crumbInfo['link'] ) : ?>
+                            <a itemprop="item" href="<?php /* @escapeNotVerified */
+							echo $crumbInfo['link'] ?>" title="<?php echo $block->escapeHtml( $crumbInfo['title'] ) ?>" >
+								<span itemprop="name"><?php echo $block->escapeHtml( $crumbInfo['label'] ) ?></span>
+                            </a>
+						<?php elseif ( $crumbInfo['last'] ) : ?>
+                            <span itemprop="item" >
+                                	<span itemprop="name"><?php echo $block->escapeHtml( $crumbInfo['label'] ) ?></span>
+                            </span>
+						<?php else: ?>
+                            <span itemprop="item" >
+                                <span itemprop="name"><?php echo $block->escapeHtml( $crumbInfo['label'] ) ?></span>
+                            </span>
+
+						<?php endif; ?>
+                        <meta itemprop="position" content="<?php echo $bread_count; ?>" />
+                    </li>
+				<?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>
+

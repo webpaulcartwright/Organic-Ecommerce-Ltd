@@ -1,0 +1,114 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$categories = $this->getStoreCategories(true, false, true);
+$categoryHelper = $this->getCategoryHelper();
+$helper = $this->helper('Magento\Search\Helper\Data');
+
+$model_phone = $objectManager->get('Magento\Variable\Model\Variable')->loadByCode('store_phone')->getValue('plain');
+$model_email = $objectManager->get('Magento\Variable\Model\Variable')->loadByCode('store_email')->getValue('plain');
+   //$moduleStatus = $this->helper('Webifi\StoreConfig\Helper\Data')->getConfig('webifi_section/webifi_catelog/latest_title');
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$baseUrl = $storeManager->getStore()->getBaseUrl();
+?>
+<div class="container-fluid">
+    <div class="menu-icon-ham">
+        <span></span>
+    </div>
+    <div class="menu-icon-right">
+        <a href="<?php echo $model_phone; ?>"><img src="<?php echo $this->getViewFileUrl('images/icons/phone.svg'); ?>" alt="Phone"></a>
+        <a href="<?php echo $model_email; ?>"><img src="<?php echo $this->getViewFileUrl('images/icons/envelope.svg'); ?>" alt="Envelope"></a>
+        <a href="<?php echo $block->getUrl('checkout/cart', ['_secure' => true]); ?>"><img src="<?php echo $this->getViewFileUrl('images/icons/cart.svg'); ?>" alt="cart"><?php 
+				$counter = $this->helper('\Magento\Checkout\Helper\Cart'); 
+                $minicartHelper = $objectManager->create('\Micro\Customminicart\Helper\Data');                 
+				// if($counter->getItemsCount()){
+				// 	echo "<span class='mw-cart-count'>(".$counter->getItemsCount().")</span>"; 
+				// }
+                //if($minicartHelper->getCartItemCount()){
+                    echo "<span class='mw-cart-count' style='display: none;'>(".$minicartHelper->getCartItemCount().")</span>"; 
+               // }
+		?></a>
+    </div>
+    <div class="navMenu-list-container">
+        <ul class="navMenu-list">
+
+            <?php
+            foreach ($categories as $category):
+                if (!$category->getIsActive()) {
+                    continue;
+                }
+                ?>   
+ <?php
+            
+             if($category->getName()=='Our Story'){
+                 ?>
+                   <li><a href="javascript:void(0);"><h5><?php echo $category->getName() ?></h5></a>
+          <?php  echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('our-story-inner-hamburger')->toHtml();
+               
+             }
+             else if($category->getName()=='Boutiques'){?>
+                 <li><a href="javascript:void(0);"><h5><?php echo $category->getName() ?></h5></a>
+           <?php             
+           echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('boutique-inner-hamburger')->toHtml();
+               
+             }
+             else{?>
+                  <li><a href="<?php echo $categoryHelper->getCategoryUrl($category) ?>"><h5><?php echo $category->getName() ?></h5></a> 
+            <?php }
+            
+            ?>
+               
+                    <?php
+                      if($category->getName()=='Shop'):
+                   $childrenCategories = $this->getChildCategories($category) ;
+                        if($childrenCategories->count()> 0):
+                        ?>
+                        <ul class="navMenu-dropDown">
+                            <?php
+                            foreach ($childrenCategories as $childrenCategory):
+                                if (!$childrenCategory->getIsActive()) {
+                                    continue;
+                                }
+                                ?>
+                                <li>
+                                    <a href="<?php echo $categoryHelper->getCategoryUrl($childrenCategory) ?>"><?php echo $childrenCategory->getName() ?></a>
+                                </li>
+
+                            <?php endforeach; ?> 
+
+                        </ul>
+
+                    <?php endif; ?> 
+                    <?php endif; ?> 
+
+                </li>
+
+
+            <?php endforeach; ?> 
+
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+jQuery(window).on('load', function(){  
+var itemcount = '';
+        jQuery.ajax({
+            url: '<?php echo $baseUrl; ?>/customminicart/index/returncount/',                
+            async: false,
+            type: 'post',
+            dataType: 'text',
+            success: function(result){
+                    itemcount = result;                                
+            }
+        });        
+        jQuery(".mw-cart-count").html("("+itemcount+")");
+        jQuery(".mw-cart-count").show();
+});
+</script>

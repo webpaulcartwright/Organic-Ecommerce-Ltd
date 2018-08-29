@@ -1,0 +1,220 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Header"}} @-->
+<!--@vars {
+"var logo_height":"Email Logo Image Height",
+"var logo_width":"Email Logo Image Width",
+"var template_styles|raw":"Template CSS"
+} @-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Welcome to WtR</title>
+    <!--[if !mso]><!-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--<![endif]-->
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+    <style type="text/css">
+        /*{{var template_styles|raw}}
+
+        {{css file="css/email.css"}}*/
+        body{
+            margin: 0;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            font-family: 'Exo 2', sans-serif;
+            letter-spacing: 0.5px;
+            line-height: 24px;
+            color: #777;
+        }
+        span{
+            color: #ab703b;
+        }
+        ul{
+            list-style: none;
+            padding: 0;
+        }
+        li:before{
+            content: "-";
+            padding-right: 10px;
+        }
+        a{
+            text-decoration: none;
+        }
+        p{
+            margin: 0;
+        }
+        .template{
+            width: 60%;
+            margin: 60px auto;
+            background-color: #fff;
+            box-shadow: 2px 2px 2px 2px rgba(247, 247, 247, 0.5);
+        }
+        .logo-container{
+            text-align: center;
+            padding: 80px 0;
+        }
+        .logo-container a{
+            display: inline-block;
+        }
+        .logo-container img{
+            width: 100%;
+        }
+        .header-image{
+            background-image: url("http://webifiwebdesign.co.uk/wtr/pub/media/wysiwyg/wtr-slider-1-4k_-_Copy.jpg");
+            background-position: top center;
+            background-size: cover;
+            min-height: 250px;
+        }
+        .content-container{
+            padding: 10px 50px 20px;
+        }
+        .title{
+            text-align: center;
+            border-bottom: 1px solid #f9f9f9;
+            padding: 15px 0 20px;
+            margin-bottom: 30px;
+            font-size: 20px;
+            letter-spacing: 6px;
+            line-height: 30px;
+        }
+        .dear{
+            font-size: 18px;
+            display: block;
+            padding-bottom: 20px;
+        }
+        .highlighted{
+            background-color: #f7f7f7;
+            padding: 20px;
+            margin: 30px 0
+        }
+        .highlighted p:not(:last-child){
+            margin-bottom: 10px;
+        }
+        .extraContent{
+            padding: 10px 20px;
+        }
+        .copyright{
+            float: left;
+            color: #cccccc;
+            padding: 15px 0;
+        }
+        .visitSite{
+            float: right;
+            padding: 15px 0;
+        }
+        .visitSite a{
+            color: #cccccc;
+        }
+        table{
+            width: 100%;
+            text-align: left;
+            margin-bottom: 30px;
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+        tr>td,
+        tr>th{
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        th{
+            font-weight: normal;
+            color: #ab703b;
+        }
+        .total tbody tr>td,
+        .total tbody tr>th{
+            border: none;
+        }
+        .total tfoot tr>th,
+        .total tfoot tr>td{
+            border-top: 1px solid #ddd;
+        }
+        .address{
+            width: 50%;
+            float: left;
+        }
+        .address .billing{
+            margin-bottom: 30px;
+        }
+        .address > div{
+            border: 1px solid #f9f9f9;
+        }
+        .address > div > p{
+            padding: 15px 0 0 15px;
+        }
+        .address > div > p:last-of-type{
+            padding-bottom: 15px;
+        }
+        .address > div > p.address-title{
+            padding: 15px;
+            background-color: #f7f7f7;
+            color: #ab703b;
+        }
+        .total{
+            width: 48%;
+            float: right;
+        }
+        .invoice:after{
+            display: table;
+            content: '';
+            clear: both;
+        }
+        @media screen and (max-width: 767px){
+            .template{
+                width: 90%;
+                margin: 30px auto;
+            }
+            .content-container {
+                padding: 10px 15px 20px;
+            }
+            .logo-container{
+                padding: 30px 0;
+            }
+            .logo-container img{
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+{{inlinecss file="css/email-inline.css"}}
+
+<!-- Begin wrapper table -->
+<table class="wrapper" width="100%">
+    <tr>
+        <td class="wrapper-inner" align="center">
+            <table class="main" align="center">
+                <tr>
+                    <td class="header">
+                        <a class="logo" href="{{store url=""}}">
+                            <img
+                                {{if logo_width}}
+                                    width="{{var logo_width}}"
+                                {{else}}
+                                    width="180"
+                                {{/if}}
+
+                                {{if logo_height}}
+                                    height="{{var logo_height}}"
+                                {{else}}
+                                    height="52"
+                                {{/if}}
+
+                                src="{{var logo_url}}"
+                                alt="{{var logo_alt}}"
+                                border="0"
+                            />
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main-content">
+                    <!-- Begin Content -->

@@ -1,0 +1,25 @@
+<div class="book_page">
+	<div class="main_slider owl-carousel">
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('book-slider')->toHtml() ?>
+	</div>
+	<div class="content">
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('book-intro')->toHtml() ?>
+		<div class="button">
+			<a href="https://www.instagram.com/kneadgoodfood/"><span>Follow my journey on Instagram</span></a>
+		</div>
+		
+	</div>
+</div>
+<script>
+	jQuery(document).ready(function($) {
+		var owl = $('.main_slider');
+		owl.owlCarousel({
+			items:1,
+			loop:true,
+			margin:10,
+			autoplay:true,
+			autoplayTimeout:5000,
+			autoplayHoverPause:false
+		});
+	});
+</script>

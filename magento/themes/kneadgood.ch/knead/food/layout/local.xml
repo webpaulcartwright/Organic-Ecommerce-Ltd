@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<default>
+		<remove name="top.search"/>
+		<remove name="top.links"/>
+		<remove name="welcome"/>
+		<remove name="store_language"/>
+		<remove name="footer_links"/>
+		<remove name="cms_footer_links"/>
+		<remove name="footer_links2"/>
+		<remove name="footer.newsletter"/>
+		<remove name="breadcrumbs"/>
+		
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>js/bootstrap.min.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>js/owl.carousel.min.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>js/knead.food.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>js/noconflict.js</name><params/></action>
+			<action method="addCss"><stylesheet>css/bootstrap.min.css</stylesheet><params/></action>
+			<action method="addCss"><stylesheet>css/owl.carousel.min.css</stylesheet><params/></action>
+			<action method="addCss"><stylesheet>css/font-awesome.min.css</stylesheet><params/></action>
+			<action method="addCss"><stylesheet>css/local.css</stylesheet><params/></action>
+		</reference>
+		<reference name="footer">
+			<block type="cms/block" name="custom_footer" before="custom_footer">
+                <action method="setBlockId"><block_id>custom_footer</block_id></action>
+            </block>
+		</reference>
+	</default>
+	<cms_index_index translate="label">
+		<reference name="content">
+			<block type="catalog/product_list" name="product_list" template="catalog/product/home_products.phtml"/>
+			<block type="cms/block" name="home_consult" after="home_workshops">
+                <action method="setBlockId"><block_id>consult</block_id></action>
+            </block>
+			<block type="cms/block" name="home_about" after="home_consult">
+                <action method="setBlockId"><block_id>about</block_id></action>
+            </block>
+			<block type="cms/block" name="home_book" after="home_about">
+                <action method="setBlockId"><block_id>book</block_id></action>
+            </block>
+			<block type="cms/block" name="home_blog" after="home_book">
+                <action method="setBlockId"><block_id>blog</block_id></action>
+            </block>
+		</reference>
+	</cms_index_index>
+</layout>

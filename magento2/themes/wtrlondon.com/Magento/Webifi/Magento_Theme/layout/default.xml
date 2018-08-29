@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+
+        <referenceContainer name="header.panel.wrapper" remove="true"/>
+        <referenceContainer name="header-wrapper" remove="true"/>
+        <referenceBlock name="navigation.sections" remove="true"/>
+        <referenceBlock name="authentication-popup" remove="true"/>
+         <referenceBlock name="page.main.title" remove="true" />
+
+
+        <!-- YourTheme/Magento_Theme/layout/default.xml -->
+        <referenceContainer name="head.additional">
+            <block class="Magento\Framework\View\Element\Template" name="cookie-bot.head" before="-" template="Magento_Theme::html/cookie_bot.phtml" />
+            <block class="Magento\Framework\View\Element\Template" name="gtm.head" before="-" template="Magento_Theme::html/gtm_head.phtml" />
+        </referenceContainer>
+
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Framework\View\Element\Template" name="gtm.body" before="-" template="Magento_Theme::html/gtm_body.phtml" />
+        </referenceContainer>
+
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Cms\Block\Block" name="mobile.banner">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">mobile_banner</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+
+        <referenceContainer name="footer-container">
+            <container name="footer-container-wrapper" label="Footer container wrapper" htmlTag="div" htmlClass="container">
+                <container name="footer-container-wrapper-row" label="Footer container wrapper row" htmlTag="div" htmlClass="row">
+                    <container name="footer-first" label="Footer First" htmlTag="div" htmlClass="col-md-3 col-sm-6">
+                        <block class="Magento\Cms\Block\Block" name="footer-first-block" as="footer-first-block" template="widget/static_block/default.phtml">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">footer-first-block</argument>
+                            </arguments>
+                        </block>
+                    </container>
+                    <container name="footer-second" label="Footer Second" htmlTag="div" htmlClass="col-md-3 col-sm-6" after="footer-first">
+                        <block class="Magento\Cms\Block\Block" name="footer-second-block" as="footer-second-block" template="widget/static_block/default.phtml">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">footer-second-block</argument>
+                            </arguments>
+                        </block>
+                    </container>
+                    <container name="footer-Third" label="Footer Third" htmlTag="div" htmlClass="col-md-3 col-sm-6" after="footer-second">
+                        <block class="Magento\Cms\Block\Block" name="footer-third-block" as="footer-third-block" template="widget/static_block/default.phtml">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">footer-third-block</argument>
+                            </arguments>
+                        </block>
+                    </container>
+                    <container name="footer" as="footer" label="Page Footer" htmlTag="div" htmlClass="col-md-3 col-sm-6" after="footer-Third">
+                        <block class="Magento\Newsletter\Block\Subscribe" name="form.subscribe" as="subscribe" before="-" template="subscribe.phtml"/>
+                        <block class="Magento\Theme\Block\Html\Footer" name="copyright" template="html/copyright.phtml"/>
+
+                    </container>
+                </container>
+            </container>
+
+        </referenceContainer>
+
+                    <referenceBlock name="report.bugs" remove="true"/>
+        <referenceBlock name="footer_links" remove="true"/>
+    </body>
+</page>

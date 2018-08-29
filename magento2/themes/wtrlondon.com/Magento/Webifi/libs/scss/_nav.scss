@@ -1,0 +1,159 @@
+@-webkit-keyframes slide-down {
+    from {top: -50px;}
+    to {top: 0;}
+}
+
+@-moz-keyframes slide-down {
+    from {top: -50px;}
+    to {top: 0;}
+}
+
+@-o-keyframes slide-down {
+    from {top: -50px;}
+    to {top: 0;}
+}
+
+@keyframes slide-down {
+    from {top: -50px;}
+    to {top: 0;}
+}
+.nav-sticky{
+	position: fixed;
+	top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+	//animation: slide-down 300ms;
+}
+.nav_with_header {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+// Colors
+.menu-icon-ham {
+    position: absolute;
+    width: 40px;
+    height: 36px;
+    margin: 50px 15px 0;
+    z-index: 1;
+    cursor: pointer;
+    @include bp(S){
+        margin: 30px 0 0;
+    }
+    &.open {
+        span {
+                background: transparent;
+                &:before,
+                &:after {
+                    background: $default-color;
+                }
+                &:after {
+                    -webkit-transform: rotate(45deg) translate(-12px, -12px);
+                    -ms-transform: rotate(45deg) translate(-12px, -12px);
+                    transform: rotate(45deg) translate(-12px, -12px);
+                }
+                &:before {
+                    -webkit-transform: rotate(-45deg) translate(-5px, 4px);
+                    -ms-transform: rotate(-45deg) translate(-5px, 4px);
+                    transform: rotate(-45deg) translate(-5px, 4px);
+                }
+            }
+        }
+    span {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: $white;
+        margin-top: 10px;
+        @extend %transition;
+        &:before,
+        &:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: $white;
+            top: -12px;
+            @extend %transition;
+        }
+        &:after {
+            top: 12px;
+        }
+    }
+}
+
+.menu-icon-right{
+    float: right; 
+    margin-top: 40px;
+    @include bp(S){
+        margin-top: 20px;
+    }
+    a{
+        padding: 10px;
+        margin-left: 10px;
+        display: inline-block;
+        img{
+            max-width: 25px;
+            @extend %transition;
+        }
+        &:hover img{
+            @include transform_scale(1.2);
+        }
+    }
+}
+.navMenu-list-container{
+    position: absolute;
+    left: -100%;
+    background-color: rgba($white,0.96);
+    padding: 100px 30px 0;
+    min-width: 640px;
+    min-height: 100vh;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    @extend %transition;
+    @extend %box-shadow-light;
+    @include add-border(1px, #ddd, all);
+    @include bp(S){
+        min-width: 0;
+        max-width: 100%;
+        padding: 75px 20px 0;
+    }
+    &.open{
+        left: 0;
+    }
+}
+.navMenu-list{
+    list-style: none;
+    padding: 0;
+    &>li>a{
+        color: $primary-color;
+        padding: 0 0 20px;
+        margin-bottom: 10px;
+        display: block;
+        &:hover{
+            color: $primary-hover-color;
+            letter-spacing: 4px;
+        }
+    }
+    &>li:not(:last-child)>a{
+        border-bottom: 1px solid rgba($black, 0.1);
+    }
+    .navMenu-dropDown{
+        list-style: none;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        @include bp(S){
+            padding-left: 20px;
+        }
+        &>li{
+            margin-bottom: 20px;
+        }
+        a:hover{
+            color: $primary-hover-color;
+            letter-spacing: 4px;
+        }
+    }
+}

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<css src="Magento_Catalog::css/style.css"/>
+		<css src="Magento_Catalog::css/style-mobile.css"/>
+    </head>
+    <body>
+		<move element="category.description" destination="content" after="category.detail.container"/>
+        <referenceContainer name="columns.top">
+			<container name="catalog.banner.container" label="Catalog Banner Container" htmlTag="div" htmlClass="catalog-banner-container" before="-">
+				<block class="Magento\Framework\View\Element\Template" name="catalog.banner.block" before="-" template="Magento_Catalog::category/banner.phtml"/>
+			</container>
+            <container name="category.view.container" htmlTag="div" htmlClass="category-view" after="-">
+                <block class="Magento\Catalog\Block\Category\View" name="category.image" template="Magento_Catalog::category/image.phtml"/>
+                <block class="Magento\Catalog\Block\Category\View" name="category.description" template="Magento_Catalog::category/description.phtml"/>
+                <block class="Magento\Catalog\Block\Category\View" name="category.cms" template="Magento_Catalog::category/cms.phtml"/>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="content">
+			<container name="category.detail.container" htmlTag="div" htmlClass="category-custom-header col-md-12 col-lg-12 col-sm-12 col-xs-12" before="-">
+				<container name="category.detail.first.container" htmlTag="div" htmlClass="col-lg-3 col-md-3 col-sm-6 col-xs-12 first" before="-">
+					<block class="Magento\Cms\Block\Block" name="free-shipping">
+						<arguments>
+							<argument name="block_id" xsi:type="string">free-shipping</argument>
+						</arguments>
+					</block>
+				</container>
+				<container name="category.detail.second.container" htmlTag="div" htmlClass="col-lg-3 col-md-3 col-sm-6 col-xs-12 second" after="category.detail.first.container">
+					<block class="Magento\Cms\Block\Block" name="working-days">
+						<arguments>
+							<argument name="block_id" xsi:type="string">working-days</argument>
+						</arguments>
+					</block>
+				</container>
+				<container name="category.detail.third.container" htmlTag="div" htmlClass="col-lg-3 col-md-3 col-sm-6 col-xs-12 third" after="category.detail.second.container">
+					<block class="Magento\Cms\Block\Block" name="bezorg">
+						<arguments>
+							<argument name="block_id" xsi:type="string">bezorg</argument>
+						</arguments>
+					</block>
+				</container>
+				<container name="category.detail.fourth.container" htmlTag="div" htmlClass="col-lg-3 col-md-3 col-sm-6 col-xs-12 fourth" after="category.detail.third.container">
+					<block class="Magento\Cms\Block\Block" name="money-back">
+						<arguments>
+							<argument name="block_id" xsi:type="string">money-back</argument>
+						</arguments>
+					</block>
+				</container>
+			</container>
+        </referenceContainer>
+    </body>
+</page>

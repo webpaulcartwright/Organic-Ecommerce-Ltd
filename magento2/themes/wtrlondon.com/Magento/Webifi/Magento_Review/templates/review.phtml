@@ -1,0 +1,35 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+
+<?php echo $block->getChildHtml(); ?>
+
+<div id="product-review-container" class="consumer-reivews-container" data-role="product-review"></div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Review/js/process-reviews": {
+                "productReviewUrl": "<?php /* @escapeNotVerified */ echo $block->getProductReviewUrl();?>"
+            }
+        }
+    }
+</script>
+
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+jQuery(window).on('load', function(){
+	var count = jQuery("input[name='review_count']").val();
+	if(count)
+	{
+		jQuery("#product-review-container").show();
+	}
+	else{
+		jQuery("#product-review-container").hide();
+	}
+});
+});
+</script>

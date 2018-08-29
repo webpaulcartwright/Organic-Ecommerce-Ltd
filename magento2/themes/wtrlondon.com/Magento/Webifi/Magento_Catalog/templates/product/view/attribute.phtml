@@ -1,0 +1,72 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @see \Magento\Catalog\Block\Product\View\Description
+ */
+?>
+<?php
+$_helper                = $this->helper( 'Magento\Catalog\Helper\Output' );
+$_product               = $block->getProduct();
+$_call                  = $block->getAtCall();
+$_code                  = $block->getAtCode();
+$_className             = $block->getCssClass();
+$_attributeLabel        = $block->getAtLabel();
+$_attributeType         = $block->getAtType();
+$_attributeAddAttribute = $block->getAddAttribute();
+
+if ( $_attributeLabel && $_attributeLabel == 'default' ) {
+	$_attributeLabel = $_product->getResource()->getAttribute( $_code )->getFrontendLabel();
+}
+if ( $_attributeType && $_attributeType == 'text' ) {
+	$_attributeValue = ( $_helper->productAttribute( $_product, $_product->$_call(), $_code ) ) ? $_product->getAttributeText( $_code ) : '';
+} else {
+	$_attributeValue = $_helper->productAttribute( $_product, $_product->$_call(), $_code );
+}
+?>
+
+
+
+<?php if ( $_attributeValue ): ?>
+    <div class="product attribute <?php /* @escapeNotVerified */
+	echo $_className ?>">
+		<?php if ( $_attributeLabel != 'none' ): ?>
+            <strong class="type"><?php /* @escapeNotVerified */
+				echo $_attributeLabel ?></strong>
+		<?php endif; ?>
+
+		<?php if ( $_code != 'description' ) {
+			if ( $_code == 'sku' ):
+				$_skunew = $_product->getData( "skunew" );
+				$_sku = $_attributeValue;
+
+				if ( $_skunew ) {
+					$_sku = $_skunew;
+				}
+				?>
+                <div class="value sku">Product Code: <?php echo $_sku; ?></div>
+			<?php else: ?>
+                <div class="value" <?php /* @escapeNotVerified */
+				echo $_attributeAddAttribute; ?>><?php /* @escapeNotVerified */
+					echo $_attributeValue; ?></div>
+			<?php
+			endif;
+		} else { ?>
+            <div class="value" <?php /* @escapeNotVerified */
+			echo $_attributeAddAttribute; ?>><?php /* @escapeNotVerified */
+				echo $_attributeValue; ?></div>
+			<?php
+		}
+
+		if ( $_code == 'sku' ) { ?>
+            <input type="hidden" name="product_name" value="<?php echo $_attributeValue; ?>">
+		<?php } ?>
+    </div>
+<?php endif; ?>

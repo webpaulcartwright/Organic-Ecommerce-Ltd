@@ -1,0 +1,13 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<div class="footerblock">
+<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('footerblock')->toHtml();?>
+</div>
+
+<small class="copyright">
+    <span><?php /* @escapeNotVerified */ echo $block->getCopyright() ?></span>
+</small>

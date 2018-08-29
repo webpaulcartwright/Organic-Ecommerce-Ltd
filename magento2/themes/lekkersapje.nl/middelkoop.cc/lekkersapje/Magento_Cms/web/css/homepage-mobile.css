@@ -1,0 +1,48 @@
+@media screen and (max-width: 767px) {
+	.main-container-products .product-item {
+		float: none;
+		display: inline-block;
+		text-align: left;
+	}
+	.main-container-products {
+		text-align: center;
+	}
+}
+@media screen and (max-width: 550px) {
+	.custom_home_posts .post_bio, .custom_home_posts .post_free, .custom_home_posts .post_chic, .custom_home_posts .block.newsletter, .custom_home_posts .social_free {
+		width: 300px !important;
+		padding: 10px 20px;
+		height: 190px;
+	}
+	.custom_home_posts div .title {
+		font-size: 32px;
+		padding-right: 70px;
+		line-height: 40px;
+	}
+	.custom_home_posts div .detail {
+		margin-top: 40px;
+		font-size: 16px;
+	}
+	.custom_home_posts .block.newsletter input {
+		padding: 0px 10px;
+		height: 40px;
+		font-size: 16px;
+	}
+	.custom_home_posts .block.newsletter .detail {
+		margin-bottom: 15px;
+	}
+	.custom_home_posts .block.newsletter .actions {
+		width: 30%;
+	}
+	.custom_home_posts .action.primary {
+		height: 40px;
+		font-size: 14px;
+	}
+	.custom_home_posts .social_free .icons i {
+		font-size: 22pt;
+		width: 50px;
+		height: 50px;
+		line-height: 55px;
+		margin: 10px 15px 0px 15px;
+	}
+}

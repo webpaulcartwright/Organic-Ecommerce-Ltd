@@ -1,0 +1,45 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<?php /** @var \Magento\Framework\Pricing\Render\Amount $block */ ?>
+
+ <?php //$finalprice_block = $block->getLayout()->createBlock("\Magento\ConfigurableProduct\Pricing\Render\FinalPriceBox");
+// $priceModel = $finalprice_block->getPriceType('regular_price');
+// $regular_price = $priceModel->getAmount();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$price_id = explode('-', $block->getPriceId());
+$id = $price_id[2];
+ $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$_product = $objectManager->create('Magento\Catalog\Model\Product')->load($id);
+$regular_price  = $_product->getPriceInfo()->getPrice('regular_price')->getValue();
+$final_price = $_product->getPriceInfo()->getPrice('final_price')->getValue(); 
+ ?>
+
+
+<span class="price-container <?php /* @escapeNotVerified */ echo $block->getAdjustmentCssClasses() ?>"
+        <?php echo $block->getSchema() ? ' itemprop="offers" itemscope itemtype="http://schema.org/Offer"' : '' ?>>
+
+    <h6 class="product-price m-t-30" <?php if ($block->getPriceId()): ?> id="<?php /* @escapeNotVerified */ echo $block->getPriceId() ?>"<?php endif;?>
+        <?php echo($block->getPriceDisplayLabel()) ? 'data-label="' . $block->getPriceDisplayLabel() . $block->getPriceDisplayInclExclTaxes() . '"' : '' ?>
+        data-price-amount="<?php /* @escapeNotVerified */ echo $block->getDisplayValue(); ?>"
+        data-price-type="<?php /* @escapeNotVerified */ echo $block->getPriceType(); ?>"
+        class="price-wrapper <?php /* @escapeNotVerified */ echo $block->getPriceWrapperCss(); ?>"
+        <?php echo $block->getSchema() ? ' itemprop="price"' : '' ?>>
+        <?php /* @escapeNotVerified */ echo $block->formatCurrency($block->getDisplayValue(), false, 0); ?>
+    </h6>
+    
+</span>
+
+<?php if($final_price < $regular_price){ ?>     
+    <script type="text/javascript">
+        var prod_id = '<?php echo $id; ?>';                                    
+        jQuery("#old-price-"+prod_id).parent().parent().css('display','block');
+    </script>
+<?php } ?>

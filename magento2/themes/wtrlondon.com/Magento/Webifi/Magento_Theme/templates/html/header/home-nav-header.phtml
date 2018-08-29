@@ -1,0 +1,193 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+$objectManager  = \Magento\Framework\App\ObjectManager::getInstance();
+$categories     = $this->getStoreCategories( true, false, true );
+$categoryHelper = $this->getCategoryHelper();
+$helper         = $this->helper( 'Magento\Search\Helper\Data' );
+
+$model_phone = $objectManager->get( 'Magento\Variable\Model\Variable' )->loadByCode( 'store_phone' )->getValue( 'plain' );
+$model_email = $objectManager->get( 'Magento\Variable\Model\Variable' )->loadByCode( 'store_email' )->getValue( 'plain' );
+//$moduleStatus = $this->helper('Webifi\StoreConfig\Helper\Data')->getConfig('webifi_section/webifi_catelog/latest_title');
+$storeManager = $objectManager->get( '\Magento\Store\Model\StoreManagerInterface' );
+$baseUrl      = $storeManager->getStore()->getBaseUrl();
+
+?>
+<div class="container-fluid">
+    <div class="menu-icon-ham">
+        <span></span>
+    </div>
+
+    <a class="small-logo" href="<?php echo $baseUrl; ?>" title="WtR Online Store"> </a>
+
+    <div class="menu-icon-right">
+        <a href="<?php echo $model_phone; ?>">
+            <img class="default" src="<?php echo $this->getViewFileUrl( 'images/icons/phone.svg' ); ?>" alt="Phone">
+        </a>
+        <a href="<?php echo $model_email; ?>">
+            <img class="default" src="<?php echo $this->getViewFileUrl( 'images/icons/envelope.svg' ); ?>" alt="Envelope">
+        </a>
+        <div class="search-button">
+            <img class="dark" src="<?php echo $this->getViewFileUrl( 'images/icons/magnifier-primary.svg' ); ?>">
+        </div>
+        <a href="<?php echo $block->getUrl( 'checkout/cart', [ '_secure' => true ] ); ?>">
+            <img class="default" src="<?php echo $this->getViewFileUrl( 'images/icons/cart.svg' ); ?>" alt="cart">
+            <img class="dark" src="<?php echo $this->getViewFileUrl( 'images/icons/cart-primary.svg' ); ?>" alt="cart">
+			<?php
+			$counter        = $this->helper( '\Magento\Checkout\Helper\Cart' );
+			$minicartHelper = $objectManager->create( '\Micro\Customminicart\Helper\Data' );
+			// if($counter->getItemsCount()){
+			// 	echo "<span class='mw-cart-count'>(".$counter->getItemsCount().")</span>";
+			// }
+			//if($minicartHelper->getCartItemCount()){
+			echo "<span class='mw-cart-count' style='display: none;'>(" . $minicartHelper->getCartItemCount() . ")</span>";
+			// }
+			?>
+        </a>
+    </div>
+    <div class="navMenu-list-container">
+        <div class="mw-searchbox">
+            <div class="row">
+                <div class="p-b-30 text-center clearfix">
+                    <div class="col-md-12">
+                        <form class="form minisearch" id="search_mini_form_mobile" action="<?php /* @escapeNotVerified */
+						echo $helper->getResultUrl() ?>">
+                            <input id="search"
+                                   data-mage-init='{"quickSearch":{
+                                   "formSelector":"#search_mini_form_mobile",
+                                   "url":"<?php /* @escapeNotVerified */
+							       echo $block->getUrl( 'search/ajax/suggest', [ '_secure' => $block->getRequest()->isSecure() ] ); ?>",
+                                   "destinationSelector":"#search_autocomplete_mobile"}
+                                   }'
+                                   type="search"
+                                   name="<?php /* @escapeNotVerified */
+							       echo $helper->getQueryParamName() ?>"
+                                   value="<?php /* @escapeNotVerified */
+							       echo $helper->getEscapedQueryText() ?>"
+                                   placeholder="<?php /* @escapeNotVerified */
+							       echo __( 'Search Product Name' ); ?>"
+                                   class="slider-search"
+                                   maxlength="<?php /* @escapeNotVerified */
+							       echo $helper->getMaxQueryLength(); ?>"
+                                   role="combobox"
+                                   aria-haspopup="false"
+                                   aria-autocomplete="both"
+                                   autocomplete="off"/>
+                            <a href="javascript:{}" onclick="document.getElementById('search_mini_form_mobile').submit();
+                                           return false;" class="btn btn-primary slider-search">SEARCH</a>
+
+                            <div id="search_autocomplete_mobile" class="search-autocomplete"></div>
+                            <button type="submit"
+                                    title="<?php echo $block->escapeHtml( __( 'Search' ) ) ?>"
+                                    class="action search hide">
+                                <span><?php /* @escapeNotVerified */
+	                                echo __( 'Search' ); ?></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="navMenu-list">
+
+			<?php
+			foreach ( $categories as $category ):
+				if ( ! $category->getIsActive() ) {
+					continue;
+				}
+
+				if ( $category->getName() == 'Our Story' ) {
+					?>
+                    <li class="page-link"><a href="javascript:void(0);"><h5><?php echo $category->getName() ?></h5></a>
+					<?php echo $block->getLayout()->createBlock( 'Magento\Cms\Block\Block' )->setBlockId( 'our-story-inner-hamburger' )->toHtml();
+
+				} else if ( $category->getName() == 'Boutiques' ) { ?>
+                    <li class="page-link"><a href="javascript:void(0);"><h5><?php echo $category->getName() ?></h5></a>
+					<?php
+					echo $block->getLayout()->createBlock( 'Magento\Cms\Block\Block' )->setBlockId( 'boutique-inner-hamburger' )->toHtml();
+
+				} elseif ( $category->getName() != 'Shop' ) {
+					?>
+                    <li class="page-link"><a href="<?php echo $categoryHelper->getCategoryUrl( $category ) ?>">
+                        <h5><?php echo $category->getName() ?></h5></a>
+					<?php
+				}
+				?>
+                </li>
+
+				<?php
+				if ( $category->getName() == 'Shop' ):
+					$childrenCategories = $this->getChildCategories( $category );
+					if ( $childrenCategories->count() > 0 ):
+						?>
+
+						<?php
+						foreach ( $childrenCategories as $childrenCategory ):
+							if ( ! $childrenCategory->getIsActive() ) {
+								continue;
+							}
+							?>
+                            <li class="category-parent-wrap">
+                                <a href="<?php echo $categoryHelper->getCategoryUrl( $childrenCategory ) ?>">
+                                    <h5><?php echo $childrenCategory->getName() ?></h5>
+
+                                </a>
+                                <div class="fa fa-angle-down"></div>
+                                
+								<?php
+								if ( $children_childrenCategories = $this->getChildCategories( $childrenCategory ) ):
+									?>
+                                    <ul class="navMenu-dropDown category-dropddown">
+										<?php
+										foreach ( $children_childrenCategories
+
+										as $children_childrenCategory ):
+										if ( ! $children_childrenCategory->getIsActive() ) {
+											continue;
+										}
+										?>
+                                        <li>
+                                            <a href="<?php echo $categoryHelper->getCategoryUrl( $children_childrenCategory ) ?>"><?php echo $children_childrenCategory->getName() ?></a>
+
+
+											<?php endforeach; ?>
+                                    </ul>
+								<?php endif; ?>
+                            </li>
+						<?php endforeach; ?>
+
+					<?php endif; ?>
+				<?php endif; ?>
+			<?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    jQuery(window).on('load', function () {
+        var itemcount = '';
+        jQuery.ajax({
+            url: '<?php echo $baseUrl; ?>/customminicart/index/returncount/',
+            async: false,
+            type: 'post',
+            dataType: 'text',
+            success: function (result) {
+                itemcount = result;
+            }
+        });
+        jQuery(".mw-cart-count").html("(" + itemcount + ")");
+        jQuery(".mw-cart-count").show();
+
+
+        jQuery(".category-parent-wrap .fa").click(function () {
+            var $dd = jQuery(this).parent().find(".category-dropddown");
+            jQuery(".category-dropddown").not($dd).slideUp();
+            $dd.slideToggle();
+        });
+    });
+</script>

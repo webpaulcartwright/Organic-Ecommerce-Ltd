@@ -1,0 +1,21 @@
+.shopPage-sidebar{
+    .sidebar-ul{
+        list-style: none;
+        padding: 0;
+    }
+    .sidebarList-dropdown .sidebar-ul{
+        padding-top: 10px;
+        padding-left: 30px;
+    }
+    .panel-heading{
+        p{
+            @include add-border(1px, #ddd, bottom);
+        }
+    }
+    .panel-collapse{
+        margin-top: 20px;
+    }
+    .color-filter li{
+        display: inline-block;
+    }
+}

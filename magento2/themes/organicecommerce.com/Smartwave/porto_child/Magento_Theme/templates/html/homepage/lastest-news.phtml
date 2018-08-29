@@ -1,0 +1,25 @@
+<div class="container">
+	<div class="title"><h1>Latest News</h1></div>
+	<div class="content">
+		<p>Want to catch up on what’s been happening lately on the e-commerce market? Take a look at the latest goings on at Tigren’s blog.</p>
+		<div class="list-container">
+			<?php $posts = $this->getPosts() ?>
+			<?php if (count($posts) > 0): ?>
+				<div class="post-list-wrapper">
+					<ol class="post-list">
+                                            <?php $i=0; ?>
+						<?php foreach($posts as $post): if($i == 3) break; $i++;?>
+							<?php if (($renderedPostHtml = $this->renderPost($post)) && ($post->getPostType() == 'post') && ($post->getPostStatus() == 'publish')): ?>
+								<li class="item<?php if ($post->isSticky()): ?> featured is-sticky<?php endif; ?> <?php echo $post->getPostFormat() ?>" <?php echo $post->getPostType();?> <?php echo $post->getPostStatus();?>>
+									<?php echo $renderedPostHtml ?>
+								</li>
+							<?php endif; ?>
+                                                                
+						<?php endforeach; ?>
+					</ol>
+					<?php echo $this->getPagerHtml() ?>
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
+</div>

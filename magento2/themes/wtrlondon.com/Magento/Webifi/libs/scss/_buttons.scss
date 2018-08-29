@@ -1,0 +1,48 @@
+/*$btn-default-color, $btn-default-bg, $btn-default-border*/
+.btn {
+	@include border-radius(0);
+	@extend %transition;
+	text-align: center;
+	min-height: $btn-height;
+	min-width: $btn-width;
+	font-size: 14px;
+	font-weight: normal;
+	display: inline-block;
+	border: 1px solid;
+    border-radius: 0; 
+    letter-spacing: 3px;//200pt
+	@include button-size();
+	@include button-variant($white, $default-color, $default-color);
+	&:hover, &:focus, &:active, &:active:focus, &:active:hover{
+		@include button-variant($white, $default-hover-color, $default-hover-color);
+        letter-spacing: 2px;//100pt
+		outline: none;
+	}
+}
+.btn-transparent {
+	border: 1px solid;
+	@include button-variant($default-color, transparent, $default-color);
+	&:hover, &:focus, &:active, &:active:focus, &:active:hover {
+		@include button-variant($white, $default-color, $default-color);
+	}
+}
+
+.btn-white-transparent {
+	border: 1px solid;
+	@include button-variant($white, transparent, $white);
+	&:hover, &:focus, &:active, &:active:focus, &:active:hover {
+		@include button-variant($white, $default-color, $default-color);
+	}
+}
+
+.btn-primary {
+	border: 1px solid;
+	@include button-variant($white, $primary-color, $primary-color);
+	&:hover, &:focus, &:active, &:active:focus, &:active:hover {
+		@include button-variant($white, $primary-hover-color, $primary-hover-color);
+	}
+}
+.btn-lg {
+	@extend .btn;
+	width: 100%;
+}

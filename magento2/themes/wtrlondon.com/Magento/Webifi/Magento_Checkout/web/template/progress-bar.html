@@ -1,0 +1,58 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="col-md-12" id="shipping-detail" style="display: none;">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="innerPage-Title text-center">
+                <h4>SHIPPING DETAIL</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12" id="billing-payment-details" style="display: none;">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="innerPage-Title text-center">
+                <h4>BILLING & PAYMENT DETAILS</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+<ul class="opc-progress-bar new">
+	 <li class="opc-progress-bar-item mw-cart _active">
+            <span>Shopping Bag</span>
+        </li>
+    <!-- ko foreach: { data: steps().sort(sortItems), as: 'item' } -->
+        <li class="opc-progress-bar-item" data-bind="css: item.isVisible() ? '_active' : ($parent.isProcessed(item) ? '_active' : '')">
+            <span data-bind="i18n: item.title, click: $parent.navigateTo"></span>
+        </li>
+    <!-- /ko -->
+     <li class="opc-progress-bar-item">
+            <span>Order Confirmation</span>
+     </li>
+</ul>
+</div>
+
+
+<script type="text/javascript">
+    /*jQuery(document).ready(function(){
+    alert("load.");
+    switch (window.location.pathname) {
+        case '/#shipping':
+            $('#shipping-detail').addClass('show')
+        case '/#payment':
+            $('#billing-payment-details').addClass('show')
+    }
+    alert("load.");
+    var url      = window.location.href;
+    console.log(url);
+    });*/
+
+</script>

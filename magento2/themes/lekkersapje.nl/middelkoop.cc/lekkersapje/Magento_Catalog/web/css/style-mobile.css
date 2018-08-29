@@ -1,0 +1,317 @@
+@media only screen and (max-width: 1279px) {
+	.category-custom-header div {
+		padding: 0 35px 30px 35px;
+		font-size: 12px;
+		height: 70px;
+	}
+	.main-container-products{
+		padding-left:40px;
+	}
+	.category-custom-blog {
+		padding: 0px 60px;
+	}
+	.custom-related-product .main-container-products {
+		padding-left: 0px;
+	}
+	.custom-related-product .product-item .product-reviews-summary .rating-summary {
+		left: 0px;
+	}
+	.custom-related-product .rating-summary .rating-result {
+		margin-left: 0px;
+	}
+	.custom-related-product .main-container-products .product-item .product-item-info .product-footer .product-add-to-cart form button:before {
+		top: 8px;
+		width: 30px;
+		height: 30px;
+	}
+	.custom-related-product .main-container-products .product-item .product-item-info .product-footer .product-add-to-cart form button div {
+		padding-left: 25px;
+		font-size: 14pt;
+	}
+	.product-top-description div {
+		padding: 0 25px;
+		font-size: 10pt;
+	}
+	.julius_product .product-detail .name span {
+		font-size: 16pt;
+	}
+	.julius_product .product-detail .name div span {
+		font-size: 9pt;
+	}
+	.julius_product .product-detail .short-description {
+		margin: 30px 0px 40px;
+		font-size: 18pt;
+		line-height: 30px;
+	}
+	.julius_product .rating-summary .rating-result {
+		width: 85px;
+	}
+	.julius_product .rating-summary div {
+		font-size: 8pt;
+	}
+	.julius_product .rating-summary .recommendation, .julius_product .rating-summary .first-note, .julius_product .rating-summary .parts {
+		vertical-align: text-bottom;
+	}
+	.julius_product .product-add-to-cart {
+		padding-top: 50px;
+	}
+	.julius_product .product-add-to-cart .old-price {
+		padding-left: 10px;
+	}
+	.julius_product .product-add-to-cart .special-price {
+		padding-left: 10px;
+	}
+	.julius_product .product-add-to-cart .per-bottle {
+		padding-left: 10px;
+		margin-bottom: 65px;
+	}
+	.julius_product .tier-price .tier-add-to-cart {
+		padding: 0px 0px 0px 10px;
+		height: 42px;
+	}
+	.julius_product .tier-price .tier-add-to-cart form button {
+		padding: 0px;
+		width: 70px;
+	}
+	.julius_product .tier-price .tier-add-to-cart .qty {
+		width: 55px;
+	}
+	.julius_product .tier-price .tier-add-to-cart form button div {
+		padding-left: 20px;
+	}
+	.julius_product .tier-price .tier-add-to-cart form button:before {
+		left: 0px;
+	}
+	.julius_product .current-add-to-cart .product-add-to-cart form button:before {
+		left: 10px;
+		width: 30px;
+		height: 30px;
+		top: 4px;
+	}
+	.julius_product .current-add-to-cart .product-add-to-cart form button {
+		padding: 0px 0 0 5px;
+	}
+	.julius_product .current-add-to-cart .product-add-to-cart {
+		height: 40px;
+	}
+	.julius_product .current-add-to-cart .qty {
+		height: 40px;
+	}
+	.julius_product .current-add-to-cart .product-add-to-cart form button div {
+		padding-left: 27px;
+	}
+	.custom-product-image .wine-month {
+		right: 4px;
+		top: 127px;
+	}
+	.julius_product .product-detail .description {
+		margin-bottom: 85px;
+	}
+}
+
+@media only screen and (max-width: 1023px) {
+	.category-custom-header div {
+		border-right: 0px;		
+		margin-bottom: 5px;
+		height: auto;
+		padding: 0px;
+		text-align: left;
+		width: 100%;
+	}
+	.category-custom-header {
+		
+	}
+	.category-product-list .products .product-item {
+		text-align: left;
+	}
+	.category-custom-blog {
+		padding: 0px; 
+		height: 0px;
+	}
+	.category-custom-blog .description div {
+		width: 100%;
+		padding: 10px 10px 20px 0px !important;
+	}
+	.title{
+		text-align: center;
+	}
+	.main-container-products {
+		padding-left: 60px;
+	}
+	.catalog-product-view.page-layout-2columns-left .sidebar-main {
+		width: 100% !important;
+	}
+	.catalog-product-view.page-layout-2columns-left .column.main {
+		width: 100% !important;
+	}
+	.bottom-related-product .main-container-products .product-item {
+		float: none;
+		display: inline-block;
+		text-align: left;
+	}
+	.main-container-products {
+		padding-left: 0px;
+		text-align: center;
+	}
+	.bottom-related-product {
+		padding-bottom: 0px;
+	}
+	.catalog-product-view.page-layout-2columns-left .sidebar-main .main-container {
+		padding-top: 10px;
+		text-align: center;
+	}
+	.custom-related-product .main-container-products .product-item {
+		width: 231px;
+		float: none;
+		display: inline-block;
+		margin: 7px;
+		text-align: left;
+	}
+	.julius_product {
+		height: auto;
+	}
+	.julius_product .product-description {
+		width: 100%;
+		border-right: 0px;
+		height: auto;
+		border-bottom: 1px solid #bca98d;
+	}
+	.julius_product .product-add-to-cart {
+		width: 100%;
+		float: none;
+	}
+	.julius_product .tier-price .tier-add-to-cart .qty {
+		width: 100px;
+	}
+	.julius_product .product-custom-blog div {
+		float: none;
+		margin-bottom: 20px;
+	}
+	.product-top-description div {
+		float: none;
+		width: 100%;
+		height: auto;
+		border-right: 0px;
+	}
+	.block.filter .filter-title strong {
+		font-size: 16px;
+	}
+	.julius_product .product-detail {
+		margin-right: 30px;
+	}
+	.julius_product .tier-price .tier-add-to-cart form button {
+		width: 100px;
+	}
+}
+@media only screen and (max-width: 767px) {
+	.julius_product {
+		width: 100%;
+	}
+	.custom-product-image {
+		width: 100%;
+		float: none;
+		text-align: center;
+	}
+	.custom-product-image .wine-month {
+		right: 35%;
+		padding-left: 0px;
+	}
+	.custom-product-image .wine-month .first {
+		text-align: left;
+		padding-left: 13px;
+	}
+	.custom-product-image .wine-month .second {
+		padding-left: 38px;
+	}
+	.catalog-category-view .columns .sidebar.sidebar-main {
+		margin-top: 0px;
+		padding: 20px 0px 0px;
+	}
+	.block.filter {
+		margin-bottom: 0px;
+	}
+	.page-main .column.main {
+		width: 100% !important;
+	}
+	.category-custom-header {
+		padding-bottom: 0px;
+		border-bottom: 0px;
+		margin-top: 0px;
+		height: 60px;
+		margin-bottom: 30px;
+	}
+	.category-custom-header div {
+		width: 25%;
+		padding: 0 10px;
+		border-right: 1px solid #d9cfc0;
+		text-align: center;
+		height: 100%;
+	}
+	.category-custom-blog .title {
+		margin-bottom: 0px;
+	}
+	.category-custom-blog .description div {
+		width: 50%;
+		padding: 10px 20px !important;
+	}
+	.column.main .product-items {
+		margin-left: 0px;
+	}
+	.category-description {
+		margin-bottom: 350px;
+	}
+	.main-container-products {
+		padding-left: 0px;
+		text-align: center;
+	}
+	.category-product-list .products .product-item {
+		float: none;
+		display: inline-block;
+		text-align: left;
+	}
+	.columns .sidebar.sidebar-main .filter-options .filter-options-title {
+		text-align: center;
+		padding-top: 5px;
+	}
+	.columns .sidebar.sidebar-main .filter-options .filter-options-content {
+		text-align: center;
+	}
+	.block.filter .filter-title {
+		text-align: center;
+		margin-bottom: 10px;
+	}
+	.block-content.filter-content {
+		text-align: center;
+	}
+}
+@media only screen and (max-width: 600px) {
+	.category-custom-header div {
+		width: 100%;
+		float: none;
+		height: auto;
+		border-right: 0px;
+	}
+	.category-custom-header {
+		height: auto;
+	}
+	.category-custom-blog .description div {
+		width: 100%;
+	}
+}
+@media screen and (max-width: 550px) {
+	.julius_product .rating-summary .rating-result {
+		display: block;
+	}
+	.julius_product .rating-summary .recommendation {
+		display: block;
+	}
+	.julius_product .rating-summary .first-note {
+		display: block;
+	}
+	.julius_product .rating-summary .first-note:before {
+		content: '';
+	}
+	.julius_product .rating-summary .parts:before {
+		content: '';
+	}
+}

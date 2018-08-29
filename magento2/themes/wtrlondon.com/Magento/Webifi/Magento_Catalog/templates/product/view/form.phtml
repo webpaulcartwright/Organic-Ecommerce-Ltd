@@ -1,0 +1,97 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+?>
+<?php $_helper = $this->helper( 'Magento\Catalog\Helper\Output' ); ?>
+<?php
+/** @var Magento\Catalog\Model\Product $_product */
+$_product = $block->getProduct(); ?>
+
+<div class="product-add-form">
+    <form action="<?php /* @escapeNotVerified */
+	echo $block->getSubmitUrl( $_product ) ?>" method="post"
+          id="product_addtocart_form"<?php if ( $_product->getOptions() ): ?> enctype="multipart/form-data"<?php endif; ?>>
+        <input type="hidden" name="product" value="<?php /* @escapeNotVerified */
+		echo $_product->getId() ?>"/>
+        <input type="hidden" name="product_name" value="<?php echo $_product->getSku() ?>"/>
+        <input type="hidden" name="selected_configurable_option" value=""/>
+        <input type="hidden" name="related_product" id="related-products-field" value=""/>
+
+
+		<?php
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$product       = $objectManager->get( 'Magento\Framework\Registry' )->registry( 'current_product' );
+		$categories    = $product->getCategoryIds(); /*will return category ids array*/
+
+		if ( $categories ) {
+			$size_type = 'clothes';
+
+			foreach ( $categories as $category ) {
+				/** @var Magento\Catalog\Model\Category $cat */
+				$cat = $objectManager->create( 'Magento\Catalog\Model\Category' )->load( $category );
+				if ( $cat->getId() == 4 ) {
+					$size_type = 'shoe';
+					break;
+				}
+			}
+
+			?>
+            <input type="hidden" name="size_type" id="size_type" value="<?php echo $size_type; ?>"/>
+			<?php
+		}
+		?>
+
+		<?php //$counter = $this->helper('\Magento\Checkout\Helper\Cart'); 
+		$counter = $this->helper( '\Micro\Customminicart\Helper\Data' ); ?>
+
+        <input type="hidden" name="cart-product-count" value="<?php echo $counter->getCartItemCount();  //echo $counter->getItemsCount(); ?>"/>
+
+		<?php echo $block->getBlockHtml( 'formkey' ) ?>
+
+		<?php echo $block->getChildHtml( 'form_top' ); ?>
+
+		<?php if ( ! $block->hasOptions() ): ?>
+			<?php echo $block->getChildHtml( 'product_info_form_content' ); ?>
+		<?php else: ?>
+			<?php if ( $_product->isSaleable() && $block->getOptionsContainer() == 'container1' ): ?>
+				<?php echo $block->getChildChildHtml( 'options_container' ) ?>
+			<?php endif; ?>
+		<?php endif; ?>
+
+		<?php if ( $_product->isSaleable() && $block->hasOptions() && $block->getOptionsContainer() == 'container2' ): ?>
+			<?php echo $block->getChildChildHtml( 'options_container' ) ?>
+		<?php endif; ?>
+
+		<?php echo $block->getChildHtml( 'form_bottom' ); ?>
+
+		<?php if ( ! $_product->isSaleable() ): ?>
+            <div class="out-of-stock-label">Out of Stock</div>
+		<?php endif; ?>
+    </form>
+</div>
+<script>
+    require([
+        'jquery',
+        'priceBox'
+    ], function ($) {
+        var dataPriceBoxSelector = '[data-role=priceBox]',
+            dataProductIdSelector = '[data-product-id=<?php echo $block->escapeHtml( $_product->getId() )?>]',
+            priceBoxes = $(dataPriceBoxSelector + dataProductIdSelector);
+
+        priceBoxes = priceBoxes.filter(function (index, elem) {
+            return !$(elem).find('.price-from').length;
+        });
+
+        priceBoxes.priceBox({'priceConfig': <?php /* @escapeNotVerified */ echo $block->getJsonConfig() ?>});
+    });
+</script>

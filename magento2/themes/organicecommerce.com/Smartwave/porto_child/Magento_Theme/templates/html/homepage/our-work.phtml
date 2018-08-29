@@ -1,0 +1,29 @@
+<?php $portfolios = $this->getPortfolios() ?>
+<div class="container">
+	<div class="title"><h1>Our Latest Work</h1></div>
+	<div class="content">
+		<p>Here are some outstanding projects that we have worked on. Your project might be the next!</p>
+		<div class="list-container">
+		<?php if(count($portfolios)>0): ?>
+		<?php $helper = $this->helper('MGS\Portfolio\Helper\Data') ?>
+		<?php foreach($portfolios as $key => $portfolio): ?>
+		<?php if ($key > 8) break; ?>
+			<div class="item col-md-3">
+				<?php $thumbnailUrl = $this->getThumbnailSrc($portfolio) ?>
+				<?php $portfolioUrl = $this->getPortfolioAddress($portfolio) ?>
+				<?php if($thumbnailUrl): ?>
+				<img src="<?php echo $thumbnailUrl ?>"/>
+				<a href="<?php echo $portfolioUrl; ?>">
+					<div class="company-info">
+						<span><?php echo $portfolio->getName() ?></span>
+					</div>
+				</a>
+				<?php endif ?>
+			</div>
+			<?php endforeach ?>
+		<?php else: ?>
+			<p class="note-msg"><?php echo $this->__('There are no portfolios matching the selection.') ?></p>
+		<?php endif ?>
+		</div>
+	</div>
+</div>

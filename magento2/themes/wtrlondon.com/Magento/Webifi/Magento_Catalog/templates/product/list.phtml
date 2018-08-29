@@ -1,0 +1,167 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\Framework\App\Action\Action;
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ */
+?>
+
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$latest_title = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('webifi_section/webifi_catelog/latest_title');
+$latest_view_all = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('webifi_section/webifi_catelog/latest_view_all_text');
+$latest_view_all_link = $objectManager->get('Magento\Framework\App\Config\ScopeConfigInterface')->getValue('webifi_section/webifi_catelog/latest_view_all_link');
+
+?>
+<?php
+$cartHelper = $objectManager->create('\Magento\Checkout\Helper\Cart');
+//$quote = $objectManager-> create('\Magento\Checkout\Model\Session')->getQuote()->getAllVisibleItems();
+//$count = sizeof($quote);
+$minicartHelper = $objectManager->create('\Micro\Customminicart\Helper\Data');
+$count = $minicartHelper->getCartItemCount();
+?>
+    <script type="text/javascript">
+        // jQuery(window).on('load', function(){
+        //   var count = '<?php echo $count ?>';
+        //   jQuery(".mw-item-count").html("("+count+")");
+        //   });
+    </script>
+
+<?php /************ to display latest collection ************************/
+$param = $this->getRequest()->getParam('new');
+if (isset($param) && $param == 1) {
+    echo $this->getLayout()->createBlock("Magento\Catalog\Block\Product\Widget\NewWidget")->setTemplate("Magento_Catalog::product/widget/new/content/new_grid.phtml")->toHtml();
+} else {
+    /************ end ************************/ ?>
+
+    <?php
+    $_productCollection = $block->getLoadedProductCollection();
+    $_helper = $this->helper('Magento\Catalog\Helper\Output');
+    ?>
+    <?php if (!$_productCollection->count()): ?>
+        <div class="message info empty">
+            <div><?php /* @escapeNotVerified */
+                echo __('We can\'t find products matching the selection.') ?></div>
+        </div>
+    <?php else: ?>
+        <?php echo $block->getToolbarHtml() ?>
+        <?php echo $block->getAdditionalHtml() ?>
+        <?php
+        if ($block->getMode() == 'grid') {
+            $viewMode = 'grid';
+            $image = 'category_page_grid';
+            $showDescription = false;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+        } else {
+            $viewMode = 'list';
+            $image = 'category_page_list';
+            $showDescription = true;
+            $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+        }
+        /**
+         * Position for actions regarding image size changing in vde if needed
+         */
+        $pos = $block->getPositioned();
+        ?>
+        <div class="products wrapper clearfix <?php /* @escapeNotVerified */
+        echo $viewMode; ?> products-<?php /* @escapeNotVerified */
+        echo $viewMode; ?>">
+            <?php $iterator = 1; ?>
+            <ol class="products list items product-items">
+                <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+                <?php foreach ($_productCollection as $_product): ?>
+                    <?php /* @escapeNotVerified */
+                    echo ($iterator++ == 1) ? '<li class="item product product-ite col-md-4 col-sm-4">' : '</li><li class="item product product-ite col-md-4 col-sm-4">' ?>
+                    <a href="<?php /* @escapeNotVerified */
+                    echo $_product->getProductUrl() ?>" class="col-3-content">
+                        <?php
+                        $product = $objectManager->create('Magento\Catalog\Model\Product')->load($_product->getId());
+                        $images = $product->getMediaGalleryImages();
+                        $_imageHelper = $this->helper('Magento\Catalog\Helper\Image');
+
+                        $i = 1;
+                        if (!empty($images)):
+
+                            $image_list = array();
+                            foreach ($images as $child):
+                                if ($i > 2) {
+                                    break;
+                                }
+
+                                $image_list[] = $_imageHelper->init($_product, 'product_page_image_mediu')
+                                    ->constrainOnly(true)->keepAspectRatio(true)->keepFrame(false)
+                                    ->setImageFile($child->getFile())
+                                    ->getUrl();
+
+                                $i++; endforeach;
+                            if (count($image_list) == 0)
+                                $image_list[] = $block->getImage($_product, 'category_page_grid')->getImageUrl();
+                            ?>
+                        <?php endif; //endif;  ?>
+                        <p class="img-holder background-image flip-front"
+                           style="background-image: url('<?php if ($image_list) echo $image_list[0]; ?>');">
+                            <img src="<?php echo $image_list[0]; ?>" alt='<?php echo $_product->getName(); ?>'>
+                            <span class="img-holder background-image flip-back"
+                                  style="background-image: url('<?php echo isset($image_list[1]) ? $image_list[1] : $image_list[0]; ?>');">
+                                <img src="<?php echo isset($image_list[1]) ? $image_list[1] : $image_list[0]; ?>"
+                                     alt='<?php echo $_product->getName(); ?>'>
+                                </span>
+                            <?php unset($image_list); ?>
+                        </p>
+                    </a>
+                    <span class="col-4-details shop-product-detail clearfix">
+                            <a href="<?php /* @escapeNotVerified */
+                            echo $_product->getProductUrl() ?>">
+                                <h6><?php /* @escapeNotVerified */
+                                    echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?></h6></a>
+                            <p>
+                                <?php /* @escapeNotVerified */
+                                echo $block->getProductPrice($_product) ?>
+                                <?php $regular_price = $_product->getPriceInfo()->getPrice('regular_price')->getValue();
+                                $final_price = $_product->getPriceInfo()->getPrice('final_price')->getValue();
+                                if ($final_price < $regular_price) {
+                                    ?>
+                                    <script type="text/javascript">
+                                var prod_id = '<?php echo $_product->getId(); ?>';
+                                jQuery("#old-price-" + prod_id).parent().parent().css('display', 'block');
+                                </script>
+                                <?php } ?>
+                            </p>
+                            <div class="clearfix"></div>
+                        </span>
+                    <div class="clearfix"></div>
+                    <?php echo ($iterator == count($_productCollection) + 1) ? '</li>' : '' ?>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+        <?php echo $block->getToolbarHtml() ?>
+        <?php if (!$block->isRedirectToCartEnabled()) : ?>
+            <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {}
+            }
+        }
+
+            </script>
+        <?php endif; ?>
+    <?php endif; ?>
+
+<?php } ?>

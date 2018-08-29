@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © 2015 Ihor Vansach (ihor@magefan.com). All rights reserved.
+ * See LICENSE.txt for license details (http://opensource.org/licenses/osl-3.0.php).
+ *
+ * Glory to Ukraine! Glory to the heroes!
+ */
+?>
+<?php
+/**
+ * Blog post view template
+ *
+ * @var $block \Magefan\Blog\Block\Post\View
+ */
+?>
+<?php
+$_post     = $this->getPost();
+$_postUrl  = $_post->getPostUrl();
+$_postName = $block->escapeHtml( $_post->getTitle(), null, true );
+?>
+
+<div class="col-md-12 post-holder-<?php echo $_post->getId() ?>">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="innerPage-Title text-center">
+                <h4><?php echo $_postName; ?></h4>
+                <span class="blog-meta blog-author"> <?php if ( $_author = $_post->getAuthor() ) { ?><?php echo $block->escapeHtml( $_author->getTitle() ) ?><?php } ?></span>
+                <span class="blog-meta blog-date"><?php echo $_post->getPublishDate( 'F d, Y' ) ?></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<div class="blog-page">
+    <div class="col-md-8 col-md-offset-2">
+		<?php if ( $featuredImage = $_post->getFeaturedImage() ) { ?>
+            <div class="background-image blog-image">
+                <img src="<?php echo str_replace( "\\", "/", $featuredImage ); ?>" alt="<?php echo $_postName ?>" class="">
+            </div>
+
+
+		<?php } ?>
+
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
+		<?php echo $block->getContent() ?>
+    </div>
+    <div class="clearfix"></div>
+    <div class="blog-nav col-md-8 col-md-offset-2">
+		<?php echo $this->getChildHtml( 'blog.post.bottom' ) ?>
+    </div>
+    <div class="clearfix"></div>
+</div>
+

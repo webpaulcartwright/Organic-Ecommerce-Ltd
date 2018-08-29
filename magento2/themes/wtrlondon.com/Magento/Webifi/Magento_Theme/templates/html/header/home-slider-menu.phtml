@@ -1,0 +1,211 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+$objectManager  = \Magento\Framework\App\ObjectManager::getInstance();
+$categories     = $this->getStoreCategories( true, false, true );
+$categoryHelper = $this->getCategoryHelper();
+$helper         = $this->helper( 'Magento\Search\Helper\Data' );
+
+$logo_link = $objectManager->get( '\Magento\Theme\Block\Html\Header\Logo' );
+?>
+<div id="home-slider" class="carousel slide home-slider" data-ride="carousel">
+
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+		<?php
+
+		echo $block->getChildHtml( 'home_slider' );
+		?>
+    </div>
+
+    <div class=" slider-content">
+        <div class="slider-logo-holder">
+            <a href="<?php echo $block->getUrl( '' ); ?>"> <img src="<?php echo $this->getViewFileUrl( 'images/slider-logo-white.png' ); ?>"
+                                                                alt="Home Logo"
+                                                                class="img-responsive"
+                /></a>
+        </div>
+        <div class="slider-single-button hidden">
+            <a href="#" class="btn btn-white-transparent">VIEW COLLECTIONS</a>
+        </div>
+        <div class="slider-menu">
+            <ul class="slider-menu-ul">
+				<?php
+				foreach ( $categories as $category ):
+					if ( ! $category->getIsActive() ) {
+						continue;
+					}
+					?>
+
+
+					<?php
+
+					if ( $category->getName() == 'Our Story' ) {
+						?>
+                        <li><a href="javascript:void(0);<?php //echo $categoryHelper->getCategoryUrl($category)
+						?>"><h5><?php echo $category->getName() ?></h5></a>
+						<?php echo $block->getLayout()->createBlock( 'Magento\Cms\Block\Block' )->setBlockId( 'our-story-inner' )->toHtml();
+
+					} else if ( $category->getName() == 'Boutiques' ) { ?>
+                        <li><a href="javascript:void(0);<?php //echo $categoryHelper->getCategoryUrl($category) ?>">
+                            <h5><?php echo $category->getName() ?></h5></a>
+						<?php
+						echo $block->getLayout()->createBlock( 'Magento\Cms\Block\Block' )->setBlockId( 'boutique-inner' )->toHtml();
+
+					} else {
+						?>
+                        <li><a href="<?php echo $categoryHelper->getCategoryUrl( $category ) ?>"><h5><?php echo $category->getName() ?></h5></a>
+					<?php }
+
+					?>
+
+
+					<?php
+					if ( $category->getName() == 'Shop' ):
+						if ( $childrenCategories = $this->getChildCategories( $category ) ):
+							?>
+                            <div class="slider-menu-content p-t-20">
+                                <div class="container">
+                                    <div class="row">
+										<?php
+										$cat_count = $childrenCategories->count();
+
+										if ( $cat_count == '2' ) {
+											$col_class = 'col-md-6 col-sm-6';
+										} else if ( $cat_count == '3' ) {
+											$col_class = 'col-md-4 col-sm-4';
+										} else if ( $cat_count == '4' ) {
+											$col_class = 'col-md-3 col-sm-3';
+										} else {
+
+											$col_class = 'col-md-2 col-sm-2';
+										}
+										?>
+										<?php
+										foreach ( $childrenCategories as $childrenCategory ):
+											if ( ! $childrenCategory->getIsActive() ) {
+												continue;
+											}
+											?>
+
+
+											<?php if ( $category->getName() == "Shop" ) { ?>
+
+                                            <div class="col-md-2 col-sm-2 ">
+                                                <a href="<?php echo $categoryHelper->getCategoryUrl( $childrenCategory ) ?>"><p
+                                                            class="text-primary m-b-20"><?php echo $childrenCategory->getName() ?></p></a>
+												<?php
+												if ( $children_childrenCategories = $this->getChildCategories( $childrenCategory ) ):
+													?>
+                                                    <ul>
+														<?php
+														foreach ( $children_childrenCategories
+
+														as $children_childrenCategory ):
+														if ( ! $children_childrenCategory->getIsActive() ) {
+															continue;
+														}
+														?>
+                                                        <li>
+                                                            <a href="<?php echo $categoryHelper->getCategoryUrl( $children_childrenCategory ) ?>"><?php echo $children_childrenCategory->getName() ?></a>
+
+
+															<?php endforeach; ?>
+                                                    </ul>
+												<?php endif; ?>
+                                            </div>
+
+											<?php
+										} else {
+											$_category = $objectManager->create( 'Magento\Catalog\Model\Category' )->load( $childrenCategory->getId() );
+											?>
+
+                                            <div class="<?php echo $col_class; ?>">
+                                                <a href="<?php echo $categoryHelper->getCategoryUrl( $childrenCategory ) ?>">
+                                                    <h6 class="title-top-w-arrow"><?php echo $childrenCategory->getName() ?></h6>
+                                                    <div class="img-holder slider-menu-img background-image">
+                                                        <img src="<?php echo $_category->getImageUrl() ?>" alt="IMG" class="">
+                                                    </div>
+                                                </a>
+                                            </div>
+
+
+										<?php } ?>
+										<?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+						<?php endif;endif;
+					?>
+
+                    </li>
+
+					<?php
+				endforeach;
+				?>
+    
+                <li><a href="#" class="slider-menu-search"></a>
+                    <div class="slider-menu-content">
+                        <div class="container">
+                            <div class="row">
+                                <div class="p-t-60 text-center">
+                                    <h3 class="text-primary m-b-20">SEARCH PRODUCT</h3>
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <form class="form minisearch" id="search_mini_form" action="<?php /* @escapeNotVerified */
+										echo $helper->getResultUrl() ?>">
+                                            <!--                                    <input type="search" placeholder="Search Product Name" class="slider-search"><a href="#" class="btn btn-primary slider-search">SEARCH</a>-->
+
+
+                                            <input id="search"
+                                                   data-mage-init='{"quickSearch":{
+                                           "formSelector":"#search_mini_form",
+                                           "url":"<?php /* @escapeNotVerified */
+											       echo $block->getUrl( 'search/ajax/suggest', [ '_secure' => $block->getRequest()->isSecure() ] ); ?>",
+                                           "destinationSelector":"#search_autocomplete"}
+                                           }'
+                                                   type="search"
+                                                   name="<?php /* @escapeNotVerified */
+											       echo $helper->getQueryParamName() ?>"
+                                                   value="<?php /* @escapeNotVerified */
+											       echo $helper->getEscapedQueryText() ?>"
+                                                   placeholder="<?php /* @escapeNotVerified */
+											       echo __( 'Search Product Name' ); ?>"
+                                                   class="slider-search"
+                                                   maxlength="<?php /* @escapeNotVerified */
+											       echo $helper->getMaxQueryLength(); ?>"
+                                                   role="combobox"
+                                                   aria-haspopup="false"
+                                                   aria-autocomplete="both"
+                                                   autocomplete="off"
+                                            /><a href="javascript:{}" onclick="document.getElementById('search_mini_form').submit();
+                                                   return false;" class="btn btn-primary slider-search">SEARCH</a>
+
+                                            <div id="search_autocomplete" class="search-autocomplete"></div>
+                                            <button type="submit"
+                                                    title="<?php echo $block->escapeHtml( __( 'Search' ) ) ?>"
+                                                    class="action search hide">
+                                                <span><?php /* @escapeNotVerified */
+													echo __( 'Search' ); ?></span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="slide-down-icon">
+        <a href="#content-start" class="smoothScroll"><img src="<?php echo $this->getViewFileUrl( 'images/icons/down-arrow.svg' ); ?>"
+                                                           alt="down arrow" class="img-responsive center-block"></a>
+    </div>
+</div>
+<div id="content-start"></div>

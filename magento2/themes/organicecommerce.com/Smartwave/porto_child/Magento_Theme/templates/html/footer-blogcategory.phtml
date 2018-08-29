@@ -1,0 +1,27 @@
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+?>
+<?php $terms = $objectManager->get('FishPig\WordPress\Model\ResourceModel\Term\CollectionFactory')->create() ?>
+<?php $terms->addTaxonomyFilter('category')->setPageSize(15)->load() ?>
+
+
+<?php if (count($terms) > 0): ?>
+<ul class="term-category">
+    <?php foreach($terms as $term): ?>
+    <li class="cat-item cat-item-<?php echo $term->getId() ?>"><a href="<?php echo $term->getUrl() ?>"><?php echo $term->getName() ?></a></li>
+    
+    <?php endforeach; ?>
+</ul>
+<?php endif; ?>
+
+<style>
+    .term-category .cat-item.cat-item-1 {
+    display: none;
+}
+</style>
+
+
+
+

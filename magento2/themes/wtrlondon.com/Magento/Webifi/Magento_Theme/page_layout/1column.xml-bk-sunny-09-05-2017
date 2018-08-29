@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="empty"/>
+    <referenceContainer name="page.wrapper" htmlClass="main-container" htmlTag="div" htmlId="main-container">
+          <container name="header.container" as="header_container" label="Page Header Container"  htmlTag="div" htmlClass="page-header" before="-" />
+
+      
+
+        <container name="footer-container" as="footer" before="before.body.end" label="Page Footer" htmlTag="footer" htmlClass="p-tb-60" />
+
+    </referenceContainer>
+    <referenceContainer name="after.body.start">
+	<block class="Webifi\Modf\Block\Getallcat" name="tag.script.container" as='tag.script.container' template="Magento_Theme::html/header/tag1.phtml"  />
+        <container name="home.nav.header" as="home-nav-header" label="home nav header" htmlTag="div" htmlClass="nav_with_header inner-page" >
+            <block class="Webifi\Modf\Block\Getallcat" name="home.nav.block" template="Magento_Theme::html/header/home-nav-header.phtml" />
+        </container>
+    </referenceContainer>
+       <referenceContainer name="header.container"  htmlClass="header_container" htmlTag="header">
+            <container name="top-bar" as="top-bar" label="top bar" htmlTag="div" htmlClass="top-bar text-center" before="-" />
+            <container name="top-bar-2" as="top-bar-2" label="top bar second" htmlTag="div" htmlClass="top-bar-2" after="top-bar" />
+            <container name="inner-page-menu" as="inner-page-menu" label="header inner page" htmlTag="div" htmlClass="inner-page-menu slider-content" after="top-bar-2" />
+        </referenceContainer>
+      
+        <!--        <move element="logo" as="logo" destination="custom-logo"/>
+        <move element="navigation.sections" name="webifi.topmenu" as="catalog.topnav" destination="custom-menu" />
+        <move element="header.panel" destination="custom-group-icon"/>-->
+        
+        <referenceContainer name="top-bar">
+            <container name="top_bar" as="top_bar" label="top_bar group" htmlTag="div" htmlClass="container" before="-">
+                <block class="Magento\Theme\Block\Html\Header" name="top_bar_block" as="top_bar_block" template="Magento_Theme::html/header/top-bar.phtml"/>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="top-bar-2">
+            <container name="top_bar_2" as="top_bar_2" label="top_bar_2 group" htmlTag="div" htmlClass="container" before="-">
+                <block class="Magento\Framework\View\Element\Template" name="top_bar_2_block" as="top_bar_2_block" template="Magento_Theme::html/header/top-bar-2.phtml"/>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="inner-page-menu">
+            <container name="custom-logo" as="custom-logo" label="Custom Logo Container" htmlTag="div" htmlClass="slider-logo-holder" before="-"/>
+            <container name="inner_page_menu" as="inner_page_menu" label="inner_page_menu group" htmlTag="div" htmlClass="container" after="custom-logo">
+            <block class="Webifi\Modf\Block\Getallcat" name="get_all_cat" template="Magento_Theme::html/header/inner-page-menu.phtml" />
+            </container>
+        </referenceContainer>
+        <move element="logo" as="logo" destination="custom-logo"/>
+</layout>

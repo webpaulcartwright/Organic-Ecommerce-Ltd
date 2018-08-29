@@ -1,0 +1,188 @@
+<?php
+
+use Magento\Framework\App\Action\Action;
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
+$_product = $this->getProduct();
+?>
+<div class="custom-product-image">
+	<?php
+	$productImage = $block->getImage($_product, "category_page_grid");
+	
+	$_imageHelper = $objectManager->get('Magento\Catalog\Helper\Image');
+	$productImage = $_imageHelper->init($_product, 'small_image', ['type'=>'small_image'])->keepAspectRatio(false)->resize('200','700')->getUrl();
+	
+	?>
+	<img src="<?php echo $productImage; ?>" />
+	<?php if ($_product->getWineMonth() == true) {?>
+	<div class="wine-month">
+		<span class="first">Wijn</span>
+		<span class="second">van de</span>
+		<span class="third">Maand</span>
+	</div>
+	<?php }?>
+	<div class="img-desc"><span>Jaartal op foto kan afwijken</span></div>
+</div>
+<div class="julius_product">
+	<div class="product-detail">
+		<div class="product-description">
+			<div class="name">
+				<span><?php echo $_product->getName() ;?></span>
+				<div><span><?php echo $_product->getWinehouse();?></span></div>
+		
+			<div class="product-short-description">
+								<?php 
+								$attr = $_product->getResource()->getAttribute('wijngebied');
+								if ($attr->usesSource()) {
+									$optionText = $attr->getSource()->getOptionText($_product->getWijngebied());
+								}
+								?>
+
+								<span><?php echo $optionText;?></span>
+							</div>
+						<div class="product-weight">
+								<?php 
+								$attr = $_product->getResource()->getAttribute('oogstjaar');
+								if ($attr->usesSource()) {
+									$optionText = $attr->getSource()->getOptionText($_product->getOogstjaar());
+								}
+								?>
+
+								<span><?php echo $optionText;?></span>
+
+							</div>							
+								
+			</div>
+			<div class="short-description">
+				<span><?php echo $_product->getDescription();?></span>
+			</div>
+			<div class="description">
+				<span><?php echo $_product->getShortDescription();?></span>
+			</div>
+			<?php 
+			$ratingOb = $objectManager->create('Magento\Review\Model\Rating')->getEntitySummary($_product->getId());  
+			$ratings = 0;
+			if ($ratingOb->getCount() != 0)
+				$ratings = $ratingOb->getSum()/$ratingOb->getCount();
+			?>
+			<div class="review">
+				<div class="product-reviews-summary product-review">
+					<div class="rating-summary">
+						<div class="rating-result">
+							<span style="width:<?php echo $ratings; ?>%"></span>
+						</div>
+						<div class="recommendation"><span></span></div>
+						<div class="first-note"><span>Lees aanbevelingen | Schrijf een proefnotitie</span></div>
+						<div class="parts"><span>Delen</span></div>
+					</div> 
+				</div>
+			</div>
+		</div>
+		<div class="product-add-to-cart">
+			<div class="old-price">Van <span><?php echo number_format((float)$_product->getPrice(), 2, '.', '');?></span></div>
+			<div class="special-price">
+				<span>Nu lekker voor </span>
+				<span class="price"><?php echo number_format((float)$_product->getSpecialPrice(), 2, '.', '');?></span>
+			</div>
+			<div class="per-bottle">
+				<span>per fles</span>
+			</div>
+			<div class="tier-price">
+				<?php 
+				$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+				$product_obj = $objectManager->create('Magento\Catalog\Model\Product')->load($_product->getId());
+
+				$tier_price = $product_obj->getTierPrice();
+
+				if(count($tier_price) > 0) {
+					foreach($tier_price as $pirces) {
+						foreach ( array_reverse($pirces) as $k => $v ) {
+							if ($k == "price") {
+								$tier_price = $v;
+							}
+							if ($k == "price_qty") {
+								$qty = $v;
+							}
+						}
+						?>
+				<div class="tier-add-to-cart">
+					<div class="qty"><span><?php echo intval($qty) . " ";?>flessen</span></div>
+					<div class="price"><span>€<?php echo " " . intval($tier_price) . ",-";?></span></div>
+					<?php if ($_product->isSaleable()) {?>
+					<?php $postParams = $block->getAddToCartPostParams($_product); 
+					$addToCartUrl =  $listBlock->getAddToCartUrl($_product);
+					?>
+					<form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post">
+						<input type="hidden" name="product" value="<?php echo $_product->getId(); ?>">
+						<input type="hidden" name="qty" value="<?php echo $qty;?>">
+						<input type="hidden" name="uenc" value="aHR0cHM6Ly9nb29kdGhpbmtpbmcubmwvY2hlY2tvdXQvY2FydC9hZGQvdWVuYy9hSFIwY0hNNkx5OW5iMjlrZEdocGJtdHBibWN1Ym13di9wcm9kdWN0LzI2Lw,,">
+						<?php echo $block->getBlockHtml('formkey')?>
+						<button type="submit" title="<?php echo 'Bestel'; ?>" class="action tocart primary">
+							<div><?php echo 'Bestel'; ?></div>
+						</button>
+					</form>
+					<?php }?>
+				</div>
+						<?php
+					}
+				}
+				?>
+				<div class="current-add-to-cart">
+					<div class="product-add-to-cart">
+						<?php if ($_product->isSaleable()) {?>
+						<?php $postParams = $block->getAddToCartPostParams($_product); 
+						$addToCartUrl =  $listBlock->getAddToCartUrl($_product);
+						?>
+						<form data-role="tocart-form" action="<?php echo $addToCartUrl; ?>" method="post">
+							<input type="hidden" name="product" value="<?php echo $_product->getId(); ?>">
+							<input type="hidden" name="uenc" value="aHR0cHM6Ly9nb29kdGhpbmtpbmcubmwvY2hlY2tvdXQvY2FydC9hZGQvdWVuYy9hSFIwY0hNNkx5OW5iMjlrZEdocGJtdHBibWN1Ym13di9wcm9kdWN0LzI2Lw,,">
+							<?php echo $block->getBlockHtml('formkey')?>
+							<button type="submit" title="<?php echo 'Bestel'; ?>" class="action tocart primary">
+								<div><?php echo 'Bestel'; ?></div>
+							</button>
+						</form>
+						<?php }?>
+					</div>
+					<div class="qty">
+						<span>1</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="product-custom-blog">
+		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 first">
+			<div class="title">
+				<span>Smaak</span>
+			</div>
+			<div class="content">
+				<span><?php echo $_product->getSmaak();?></span>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 second">
+			<div class="title">
+				<span>Lekker bij</span>
+			</div>
+			<div class="content">
+				<span><?php echo $_product->getLekkerBij();?></span>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 third">
+			<div class="title">
+				<span>Interessant</span>
+			</div>
+			<div class="content">
+				<span><?php echo $_product->getInteressant();?></span>
+			</div>
+		</div>
+	</div>
+</div>
+<?php if (!$block->isRedirectToCartEnabled()) : ?>
+	<script type="text/x-magento-init">
+	{
+		"[data-role=tocart-form], .form.map.checkout": {
+			"catalogAddToCart": {}
+		}
+	}
+	</script>
+<?php endif; ?>

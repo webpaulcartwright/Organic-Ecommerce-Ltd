@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<body>
+		<referenceContainer name="header.container" after="header-wrapper">
+			<container name="header.menu.container" label="Menu Container" htmlClass="menu_container" htmlTag="div">
+				<block class="Magento\Framework\View\Element\Template" name="header.soort.block" before="-" template="Magento_Theme::html/menu/custom_menu.phtml"/>
+			</container>
+			<container name="headersearch.container" as="headersearchContainer" label="Header Search Container" htmlTag="div" htmlClass="header search" />
+		</referenceContainer>
+		<referenceContainer name="columns.top">
+			<referenceBlock name="page.main.title" remove="true" />
+		</referenceContainer>
+		<referenceContainer name="footer">
+			<block class="Magento\Cms\Block\Block" name="footer_menu" before="-" remove="true" >
+				<arguments>
+					<argument name="block_id" xsi:type="string">footer_menu</argument>
+				</arguments>
+			</block>
+		</referenceContainer>
+		
+		<move element="header.menu.container" destination="header-wrapper" after="logo"/>
+		<move element="top.links" destination="header.menu.container" after="-"/>
+		<move element="minicart" destination="header-wrapper" after="header.menu.container"/>
+		<move element="top.search" destination="headersearch.container"/>
+		
+		<referenceBlock name="store.links" remove="true" />
+		<referenceBlock name="wish-list-link" remove="true" />
+		<referenceBlock name="advanced-search-link" remove="true" />
+		<referenceBlock name="footer_links" remove="true" />
+		<referenceBlock name="report.bugs" remove="true" />
+		<referenceBlock name="view.addto.wishlist" remove="true" />
+		
+	</body>
+</page>

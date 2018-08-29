@@ -1,0 +1,22 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /* @var $block \Magento\Catalog\Block\Product\View\AbstractView */?>
+<?php $_product = $block->getProduct() ?>
+
+<script type="text/javascript">
+jQuery(".cartIcon").hover(
+  function() {
+    jQuery("#mw-mini-cart").css("display", "block");
+  }, function() {
+    jQuery("#mw-mini-cart").css("display", "none");
+  }
+); 
+</script>
+

@@ -1,0 +1,73 @@
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "Your %store_name order confirmation" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var order.getEmailCustomerNote()":"Email Order Note",
+"var order.increment_id":"Order Id",
+"layout handle=\"sales_email_order_items\" order=$order area=\"frontend\"":"Order Items Grid",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"var shipping_msg":"Shipping message"
+} @-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Welcome to WtR</title>
+    <!--[if !mso]><!-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--<![endif]-->
+    <meta name="viewport" content="width=device-width" />
+</head>
+
+<body style="margin: 0;font-size: 16px;background-color: #f9f9f9;font-family: sans-serif;letter-spacing: 0.5px;line-height: 24px;color: #777;">
+    <div class="template" style="width:90%;margin: 30px auto;background-color: #fff;box-shadow: 2px 2px 2px 2px rgba(247, 247, 247, 0.5);">
+        <div class="logo-container" style="text-align: center;padding: 20px 0;">
+            <a href="http://webifiwebdesign.co.uk/wtr" class="display: inline-block;">
+                <img src="http://webifiwebdesign.co.uk/wtr/pub/media/logo/stores/1/wtr-new-logo-color-small_1.png" alt="Logo" class="logo" style="max-width: 150px;"></a>
+        </div>
+        <div class="header-image" style="background-image: url('http://webifiwebdesign.co.uk/wtr/pub/media/wysiwyg/wtr-slider-1-4k_-_Copy.jpg');background-position: top center;background-size: cover;min-height: 200px;"></div>
+        <div class="content-container" style="padding: 10px 30px 20px;">
+            <div class="title" style="text-align: center;border-bottom: 1px solid #f9f9f9;padding: 0px 0 10px;margin-bottom: 15px;font-size: 20px;letter-spacing: 4px;line-height: 30px;">
+                <p style="margin :0;">{{trans '<span style="color: #ab703b;">WtR STORE:</span>NEW ORDER(%increment_id)' increment_id=$order.increment_id |raw}}</p>
+            </div>
+            <div class="content">
+                <span class="dear" style="color: #ab703b;font-size: 18px;display: block;padding-bottom: 15px;">{{trans "Dear %customer_name," customer_name=$order.getCustomerName()}}</span>
+                <p style="margin :0;">{{trans 'Thank you for your order from the WtR online store. Once your package ships we will send an e-mail with a link to track your order. If you have any questions about your order please contact us at <a href="mailto:%store_email" style="text-decoration: none;">%store_email</a>' store_email=$store_email |raw}}{{depend store_phone}} {{trans 'or call us at <a href="tel:%store_phone" style="text-decoration: none;">%store_phone</a>' store_phone=$store_phone |raw}}{{/depend}}. </p><br/>
+                <p style="margin :0;">{{depend store_hours}} {{trans 'Monday – Friday %store_hours' store_hours=$store_hours |raw}}{{/depend}}</p>
+                <p style="padding: 20px 0;">{{trans 'Please find your order confirmation below. Thank you once again.'}}</p>
+                <p style="margin :0;">{{trans 'Kindest Regards,'}}<br/>{{trans 'The WtR Team'}}</p>
+                <div class="highlighted" style="background-color: #f7f7f7;padding: 20px;margin: 30px 0">
+                    <p style="margin :0;margin-bottom: 10px;">{{trans '<span style="color: #ab703b;">Order No.: </span>%increment_id' increment_id=$order.increment_id |raw }}</p>
+                    <p style="margin :0;margin-bottom: 10px;">{{trans '<span style="color: #ab703b;">Date: </span> %created_at' created_at=$order.getCreatedAtFormatted(2) |raw }}</p>
+                    <div style="margin:0;vertical-align: top;line-height: 0px;"><div style="color: #ab703b;display: inline-block;">{{trans 'Payment Method: '}}</div> <div style="display: inline-block;">{{var payment_html|raw}}</div></div>
+                </div>
+            </div>
+
+            <table style="width:100%;text-align: left;margin-bottom: 30px;border-spacing: 0;border-collapse: collapse;">
+                {{layout handle="sales_email_order_items" order=$order area="frontend"}}
+            </table>
+
+        </div>
+        <div class="extraContent" style="padding: 10px 20px;">
+            <div class="copyright" style="float: left;color: #cccccc;padding: 15px 0;">
+                <p style="margin :0;">&copy; {{trans 'WtR London, 2017' }}</p>
+            </div>
+            <div class="visitSite" style="float: right;padding: 15px 0;">
+                <p style="margin :0;"><a href="http://webifiwebdesign.co.uk/wtr" style="text-decoration: none;color: #cccccc;">{{trans 'Visit Website' }}</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

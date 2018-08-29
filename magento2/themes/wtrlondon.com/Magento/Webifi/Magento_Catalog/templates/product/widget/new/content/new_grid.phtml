@@ -1,0 +1,89 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Template for displaying new products widget
+ *
+ * @var $block \Magento\Catalog\Block\Product\Widget\NewWidget
+ */
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getSize())) {
+    $type = 'widget-new-grid';
+
+    $mode = 'grid';
+
+    $image = 'new_products_content_widget_grid';
+    $title = __('New Products');
+    $items = $block->getProductCollection()->getItems();
+    $_productCollection = $block->getProductCollection();
+
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+    $description = false;
+}
+?>
+
+<?php if ($exist):?>
+ 
+<?php echo $block->getToolbarHtml() ?>
+<?php echo $block->getAdditionalHtml() ?>
+<div class="products wrapper clearfix <?php /* @escapeNotVerified */ echo $mode; ?> products-<?php /* @escapeNotVerified */ echo $mode; ?>">
+        <?php $iterator = 1; ?>
+        <ol class="products list items product-items"> 
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php foreach ($_productCollection as $_product): ?>
+                <?php /* @escapeNotVerified */ echo($iterator++ == 1) ? '<li class="item product product-ite col-md-4 col-sm-6">' : '</li><li class="item product product-ite col-md-4 col-sm-6">' ?>
+                <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>" class="col-3-content">
+                        <?php
+                            $product = $objectManager->create('Magento\Catalog\Model\Product')->load($_product->getId());        
+                            $images = $product->getMediaGalleryImages(); 
+                            $i=1;
+                            if(!empty($images)):
+                               ?>
+                                                
+                               <?php 
+                              $image_list=array();
+                              foreach($images as $child):
+                                  if($i>2){
+                                      break;
+                                  }
+                                  $image_list[]=$child->getUrl();
+                                  
+                             $i++; endforeach;
+                             if(count($image_list)==0)
+                                $image_list[]=$block->getImage($_product, 'category_page_grid')->getImageUrl();
+                             ?>
+                        <?php endif; //endif;  ?>
+                            <p class="img-holder background-image flip-front" style="background-image: url('<?php if($image_list) echo $image_list[0]; ?>');">
+                                <img src="<?php echo $image_list[0]; ?>" alt='<?php echo $_product->getName(); ?>' >
+                                <span class="img-holder background-image flip-back" style="background-image: url('<?php echo isset($image_list[1])?$image_list[1]:$image_list[0]; ?>');">
+                                <img src="<?php echo isset($image_list[1])?$image_list[1]:$image_list[0]; ?>" alt='<?php echo $_product->getName(); ?>' >
+                                </span>
+                                <?php unset($image_list); ?>                        
+                            </p>
+                        </a>
+                        <span class="col-4-details shop-product-detail clearfix">
+                            <a href="<?php /* @escapeNotVerified */ echo $_product->getProductUrl() ?>">
+                                <h6><?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getName(), 'name'); ?></h6></a>
+                            <p>
+                                <?php /* @escapeNotVerified */ echo $block->getProductPrice($_product) ?>         
+                            </p>
+                            <div class="clearfix"></div>
+                        </span><div class="clearfix"></div>
+                <?php echo($iterator == count($_productCollection)+1) ? '</li>' : '' ?>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+<?php else :?>
+<div class="message info empty"><div><?php /* @escapeNotVerified */ echo __('We can\'t find products matching the selection.') ?></div></div>
+<?php endif;?>

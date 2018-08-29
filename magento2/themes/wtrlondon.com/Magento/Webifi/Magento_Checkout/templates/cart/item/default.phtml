@@ -1,0 +1,281 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
+
+$_item = $block->getItem();
+
+$product = $_item->getProduct();
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+/** @var \Magento\Catalog\Model\Product $productInfo */
+$productInfo = $objectManager->get( '\Magento\Catalog\Model\Product' )->load( $_item->getProductId() );
+
+// echo $productInfo->getDescription();exit;
+
+$isVisibleProduct = $product->isVisibleInSiteVisibility();
+
+
+/** @var \Magento\Msrp\Helper\Data $helper */
+$helper      = $this->helper( 'Magento\Msrp\Helper\Data' );
+$cart_helper = $this->helper( 'Magento\Checkout\Helper\Cart' );
+//$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+//$delete_link = $objectManager->create('Magento\Checkout\Block\Cart\Item\Renderer\Actions')->getDeletePostJson($_item);
+$delete_link = $cart_helper->getDeletePostJson( $_item );
+
+$canApplyMsrp = $helper->isShowBeforeOrderConfirm( $product ) && $helper->isMinimalPriceLessMsrp( $product );
+
+//get size title
+$categories = $productInfo->getCategoryIds(); /*will return category ids array*/
+$size_type  = 'clothes';
+
+if ( $categories ) {
+	foreach ( $categories as $category ) {
+		/** @var Magento\Catalog\Model\Category $cat */
+		$cat = $objectManager->create( 'Magento\Catalog\Model\Category' )->load( $category );
+		if ( $cat->getId() == 4 ) {
+			$size_type = 'shoe';
+			break;
+		}
+	}
+}
+$size_type = '';
+
+$fr_uk = [
+	"32" => "EU 32 / UK4",
+	"34" => "EU 34 / UK6",
+	"36" => "EU 36 / UK8",
+	"38" => "EU 38 / UK10",
+	"40" => "EU 40 / UK12",
+	"42" => "EU 42 / UK14",
+	"44" => "EU 44 / UK16",
+
+	"4"  => "EU 32 / UK4",
+	"6"  => "EU 34 / UK6",
+	"8"  => "EU 36 / UK8",
+	"10" => "EU 38 / UK10",
+	"12" => "EU 40 / UK12",
+	"14" => "EU 42 / UK14",
+	"16" => "EU 44 / UK16"
+];
+
+if ( $size_type === "shoe" ) {
+	$fr_uk = [
+		"35" => "EU 35 / UK2",
+		"36" => "EU 36 / UK3",
+		"37" => "EU 37 / UK4",
+		"38" => "EU 38 / UK5",
+		"39" => "EU 39 / UK6",
+		"40" => "EU 40 / UK7",
+		"41" => "EU 41 / UK8",
+
+		"42" => "EU 42 / UK9",
+		"43" => "EU 43 / UK10",
+		"44" => "EU 44 / UK11",
+		"45" => "EU 45 / UK12",
+		"46" => "EU 46 / UK13",
+		"47" => "EU 47 / UK14",
+		"48" => "EU 48 / UK15",
+	];
+}
+
+
+?>
+
+<tbody class="cart item">
+<tr class="item-info">
+    <td data-th="<?php echo $block->escapeHtml( __( 'Item' ) ); ?>" class="col item item-action">
+		<?php if ( $block->hasProductUrl() ): ?>
+        <a href="<?php /* @escapeNotVerified */
+		echo $block->getProductUrl() ?>"
+           title="<?php echo $block->escapeHtml( $block->getProductName() ) ?>"
+           tabindex="-1"
+           class="product-item-photo">
+			<?php else: ?>
+            <span class="product-item-photo">
+            <?php endif; ?>
+
+                <div class="img-container cart-thumbnail-container">
+                         <?php
+                         $store = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore();
+                         $imageUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product' . $productInfo->getImage();
+
+                         if($imageUrl){
+                             echo "<img src='$imageUrl'/>";
+                         }else{
+                             echo $block->getImage( $block->getProductForThumbnail(), 'cart_page_product_thumbnail' )->toHtml();
+                         }
+
+
+                         ?>
+                                    </div>
+				<?php if ( $block->hasProductUrl() ): ?>
+        </a>
+	<?php else: ?>
+        </span>
+	<?php endif; ?>
+
+    </td>
+
+    <td>
+		<?php if ( $block->hasProductUrl() ): ?>
+            <a href="<?php /* @escapeNotVerified */
+			echo $block->getProductUrl() ?>"
+               class="text-primary m-b-20 product-title"><?php echo $block->escapeHtml( $block->getProductName() ) ?></a>
+		<?php else: ?>
+			<?php echo $block->escapeHtml( $block->getProductName() ) ?>
+		<?php endif; ?>
+
+
+		<?php if ( $productInfo->getShortDescription() ): ?>
+			<?php
+			echo ( strlen( $productInfo->getShortDescription() ) > 150 ) ? substr( $productInfo->getShortDescription(), 0, 149 ) . '...' : $productInfo->getShortDescription(); ?>
+		<?php else: ?>
+			<?php
+			echo ( strlen( $productInfo->getDescription() ) > 150 ) ? substr( $productInfo->getDescription(), 0, 149 ) . '...' : $productInfo->getDescription();
+			?>
+		<?php endif; ?>
+    </td>
+
+    <!--    <td>-->
+    <!--        <div class="color-variation">-->
+    <!--            <div class="col-title">Colour</div>-->
+    <!--			--><?php //if ( $_options = $block->getOptionList() ): ?>
+    <!--				--><?php //foreach ( $_options as $_option ) : ?>
+    <!--					--><?php //if ( $_option['label'] == 'COLOR' ) {
+	//						$_formatedOptionValue = $block->getFormatedOptionValue( $_option );
+	//						echo $_formatedOptionValue['value'];
+	//						break;
+	//					}
+	//					if ( count( $_options ) < 2 ) {
+	//						if ( ! in_array( 'COLOR', $_option ) ) {
+	//							echo "N/A";
+	//						}
+	//					}
+	//					?>
+    <!--				--><?php //endforeach; ?>
+    <!--			--><?php //else: ?>
+    <!--				--><?php //echo "N/A"; ?>
+    <!--			--><?php //endif; ?>
+    <!--        </div>-->
+    <!--    </td>-->
+
+    <td>
+        <div class="col-title">Size</div>
+        <div class="custom-select">
+			<?php if ( $_options = $block->getOptionList() ): ?>
+				<?php foreach ( $_options as $_option ) : ?>
+					<?php
+					if ( $_option['label'] == 'SIZE' ) {
+						$_formatedOptionValue = $block->getFormatedOptionValue( $_option );
+
+						if ( array_key_exists( $_formatedOptionValue['value'] . "", $fr_uk ) ) {
+							echo $fr_uk[ $_formatedOptionValue['value'] . "" ];
+						} else {
+							echo $_formatedOptionValue['value'];
+						}
+						break;
+					}
+					if ( count( $_options ) < 2 ) {
+						if ( ! in_array( 'SIZE', $_option ) ) {
+							echo "N/A";
+						}
+					}
+					?>
+				<?php endforeach; ?>
+			<?php else: ?>
+				<?php echo "N/A"; ?>
+			<?php endif; ?>
+        </div>
+    </td>
+
+
+    <td class="col qty" data-th="<?php echo $block->escapeHtml( __( 'Qty' ) ); ?>">
+        <div class="col-title"><?php echo $block->escapeHtml( __( 'Qty' ) ); ?></div>
+        <div class="field qty">
+            <div class="control qty">
+				<?php
+				//                <input id="cart-<?php /* @escapeNotVerified */
+				/*				echo $_item->getId() ?>-qty"*/
+				//                       name="cart[<?php /* @escapeNotVerified */
+				/*				       echo $_item->getId() ?>][qty]"*/
+				//                       data-cart-item-id="<?php /* @escapeNotVerified */
+				/*				       echo $_item->getSku() ?>"*/
+				//                       value="<?php /* @escapeNotVerified */
+				/*				       echo $block->getQty() ?>"*/
+				//
+				/*                       title="<?php echo $block->escapeHtml( __( 'Qty' ) ); ?>"*/
+				//                       class="input-text qty product-quantity"
+				//
+				//                       data-validate="{required:true,'validate-greater-than-zero':true}"
+				//                       data-role="cart-item-qty"/>
+				?>
+
+                <select title="<?php echo $block->escapeHtml( __( 'Qty' ) ); ?>"
+                        name="cart[<?php echo $_item->getId() ?>][qty]">
+					<?php for ( $i = 0; $i <= 10; $i ++ ):
+
+						$isChecked = $block->getQty() == $i + 1 ? "selected='selected'" : '';
+						?>
+                        <option value="<?php echo $i + 1; ?>"
+							<?php echo $isChecked; ?>
+                        ><?php echo $i + 1; ?></option>
+					<?php endfor; ?>
+                </select>
+                <i class="fa fa-angle-down"></i>
+            </div>
+        </div>
+    </td>
+
+	<?php if ( $canApplyMsrp ): ?>
+        <td class="col msrp" data-th="<?php echo $block->escapeHtml( __( 'Price' ) ); ?>">
+            <div class="col-title"><?php echo $block->escapeHtml( __( 'Price' ) ); ?></div>
+            <span class="pricing msrp">
+                    <span class="msrp notice"><?php /* @escapeNotVerified */
+	                    echo __( 'See price before order confirmation.' ); ?></span>
+				<?php $helpLinkId = 'cart-msrp-help-' . $_item->getId(); ?>
+                <a href="#" class="action help map" id="<?php /* @escapeNotVerified */
+				echo( $helpLinkId ); ?>" data-mage-init='{"addToCart":{"helpLinkId": "#<?php /* @escapeNotVerified */
+				echo $helpLinkId; ?>","productName": "<?php /* @escapeNotVerified */
+				echo $product->getName(); ?>","showAddToCart": false}}'>
+                        <span><?php /* @escapeNotVerified */
+	                        echo __( "What's this?" ); ?></span>
+                    </a>
+                </span>
+        </td>
+	<?php else: ?>
+        <td class="col price" data-th="<?php echo $block->escapeHtml( __( 'Price' ) ); ?>">
+            <div class="col-title"><?php echo $block->escapeHtml( __( 'Price' ) ); ?></div>
+			<?php echo $block->getUnitPriceHtml( $_item ); ?>
+        </td>
+	<?php endif; ?>
+
+
+    <td class="col subtotal" data-th="<?php echo $block->escapeHtml( __( 'Subtotal' ) ); ?>">
+        <div class="col-title"><?php echo $block->escapeHtml( __( 'Subtotal' ) ); ?></div>
+		<?php if ( $canApplyMsrp ): ?>
+            <span class="cart msrp subtotal">--</span>
+		<?php else: ?>
+			<?php echo $block->getRowTotalHtml( $_item ); ?>
+		<?php endif; ?>
+        <a href="#" class="remove-item text-white action action-delete"
+           data-post='<?php /* @escapeNotVerified */
+		   echo $delete_link; ?>'>
+        </a>
+    </td>
+
+</tr>
+<!--    <tr class="item-actions">
+        <td colspan="100">
+            <div class="actions-toolbar">
+                <?php /* @escapeNotVerified */ //echo $block->getActions($_item) ?>
+            </div>
+        </td>
+    </tr>-->
+</tbody>

@@ -1,0 +1,505 @@
+.background-image {
+    min-height: 120px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    &>img:first-child {
+        display: none;
+    }
+}
+
+.background-whole-section{
+    position: relative;
+    background-position: top center;
+    .header-breadcrumb{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+.img-holder {
+    position: relative;
+}
+
+.flip-front{
+    &.img-holder:hover{
+        .flip-back{
+            visibility: visible;
+            opacity: 1;
+            //@include transform_rotate(y, 360deg);
+        }
+        background: transparent !important;
+        border: none;
+    }
+}
+
+.flip-back{
+    @include transition(all, 0.6s, ease);
+    //@include transform_rotate(y, 180deg);
+    position: absolute;
+    top: -1px;
+    bottom: -1px;
+    left: -1px;
+    right: -1px;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.hover-overlay,
+%full-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.title-top-w-arrow {
+    min-height: 40px;
+    margin-bottom: 20px;
+    @extend %arrow-after;
+    @include bp(S){
+        min-height: auto;
+        margin-bottom: 10px;
+    }
+}
+
+.title-in-img {
+    color: $white;
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    z-index: 2;
+    letter-spacing: 3px; //200pt
+    @extend %transition;
+}
+
+.section-title {
+    padding: 0 15px;
+    p {
+        float: left;
+        letter-spacing: 6px; //400pt
+        line-height: 33px;
+    }
+    .view-all {
+        float: right;
+        letter-spacing: 3px; //200pt
+        color: $primary-color;
+        @extend %arrow-after;
+        &:hover {
+            letter-spacing: 2px; //100pt
+        }
+    }
+    &:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+.innerPage-Title{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    h4{
+        margin-bottom: 10px
+    }
+    @include bp(S){
+        margin-top: 50px;
+    }
+}
+
+.col-3-content,
+.col-4-content {
+    display: block;
+    &>.img-holder {
+        min-height: 370px;
+        max-height: 370px;
+        @extend %light-border;
+        @extend %transition;
+        .hover-overlay {
+            background-color: rgba($black, 0.2);
+        }
+        &:hover {
+            @extend %transparent-border;
+            @extend %image-box-shadow-dark;
+            .hover-overlay {
+                background-color: rgba($black, 0.1);
+            }
+        }
+    }
+    &:hover {
+        .title-in-img {
+            letter-spacing: 2px; //100pt
+        }
+    }
+    &:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+    &.no-details{
+        margin-bottom: 25px;
+    }
+    @include bp(S) {
+        @include add-border(1px, rgba($light-color, 0.2), all);
+        @include add-border(0px, transparent, bottom);
+    }
+}
+    
+.col-3-details {
+    @include bp(S) {
+        @include add-border(1px, rgba($light-color, 0.2), all);
+        padding: 0 15px 15px;
+        margin-bottom: 25px;
+        display: block;
+    }
+    h5 {
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+    p{
+        color: #f2f2f2;
+    }
+}
+
+.dark-bg {
+    @include add-background($dark-color);
+    .section-title .view-all {
+        @extend %text-white-a;
+    }
+    .col-3-content >.img-holder {
+        @extend %dark-border;
+        &:hover {
+            @extend %image-box-shadow-light;
+        }
+    }
+}
+
+.goto-top-icon {
+    max-width: 30px;
+    max-height: 30px;
+    background-color: rgba($dark-color, 0.5);
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2;
+    padding: 5px;
+    border-radius: 3px;
+    @include add-border(1px, rgba($white, 0.5), all);
+    @include transform_rotate(x, 180deg);
+}
+
+.custom-select{
+    display: inline-block;
+    select{
+        @include add-border(1px, #ddd, all);
+        background-image: url(../img/icons/select-down-arrow.png);
+        background-repeat: no-repeat;
+        background-position: right;
+        background-position: calc(100% - 8px) calc(1em + -5px),calc(100% - 15px) calc(1em + 2px),calc(100% - .5em) .5em;
+        background-size: 18px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        padding-right: 30px;
+    }
+    &.custom-select-noBorder{
+        select{
+            border: none;
+            background-color: transparent;
+            &:focus, &:hover, &:active{
+                outline: none;
+            } 
+        }
+    }
+}
+
+.incrementer{
+    position: relative;
+    min-width: 143px;
+    max-width: 143px;
+    min-height: 45px;
+    input{
+        position: absolute;
+        left: 44px;
+        max-width: 50px;
+        min-width: 50px;
+        text-align: center;
+    }
+    .increment-button{
+        position: absolute;
+        top: 0;
+        padding: 4px 15px;
+        cursor: pointer;
+        font-size: 24px;
+        max-width: 50px;
+        @include add-border(1px, #ddd, all);
+        &:hover{
+            @include add-background(rgba(#ddd, .5));
+        }
+    }
+    .dec{
+        left: 0;
+    }
+    .inc{
+        right: 0;
+    }
+}
+
+.social-icons{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    @extend %display-flex;
+    li:not(:last-child){
+        margin-right: 15px;
+    }
+    a{
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+        @include add-background(#484848);
+        @include border-radius(50%);
+        @extend %display-flex;
+        @extend %display-flex-justify-center;
+        i{
+            padding: 8px 11px;
+        }
+        &:hover, &:focus{
+            padding-left: 0px;
+            background: none;
+            color: #484848;
+            border-radius: 0;
+            @include transform_scale(1.5);
+        }
+    }
+    @include bp(S){
+        display: block;
+        li{
+            display: inline-block;
+        }
+    }
+}
+
+.rate-product-stars{
+    &>label{
+        display: block;
+    }
+    .rate-product{
+        float: left;
+        &>label{
+            float: right
+        }
+    }
+    .fa-star, label.star {
+        font-size: 20px;
+        color: $light-color;
+    }
+
+    .five-star i,
+    .four-star i:nth-child(-n+4),
+    .three-star i:nth-child(-n+3),
+    .two-star i:nth-child(-n+2),
+    .one-star i:nth-child(-n+1) {
+        color: $primary-color;
+    }
+
+    div.stars {
+        display: inline-block;
+    }
+    
+    input.star {
+        float: right;
+        width: 1px;
+        visibility: hidden;
+        height: auto;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    label.star {
+        padding: 3px;
+        &:before {
+            content: '\f005';
+            font-family: FontAwesome;
+        }
+    }
+
+    input.star:checked ~ label.star:before,
+    input.star:hover ~ label.star {
+        color: $primary-color;
+        cursor: pointer;
+    }
+}
+
+.filter-tags{
+    font-size: 14px;
+    padding: 8px 15px;
+    list-style: none;
+    margin: 0;
+    &>li{
+        list-style: none;
+        display: inline-block;
+        margin: 0;
+        &+li:before{
+            padding: 0 5px;
+            color: #ccc;
+            content: "/\00a0";
+        }
+    }
+}
+
+.sortBy{
+    text-align: right;
+}
+
+.noMore{
+    text-align: center;
+    padding: 15px;
+    @include add-border(1px, #ddd, all);
+}
+
+.wtr-accordian{
+    .panel{
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        &+.panel{
+            margin-top: 0;
+        }
+    }
+    .panel-group{
+        margin: 0;
+        .panel-heading{
+            padding: 0;
+            h6, p{
+                position: relative;
+                margin-bottom: 0;
+                padding: 10px 10px 10px 0;
+                &:after{
+                    content: "\f106";
+                    font-family: 'FontAwesome';
+                    color: $primary-color;
+                    font-size: 22px;
+                    position: absolute;
+                    right: 0;
+                    top: 3px;
+                }
+            }
+            &>a{
+                display: block;
+                &.collapsed h6:after, &.collapsed p:after{
+                    top: 5px;
+                    @extend %transition;
+                    @include transform_rotate(x, 180deg);
+                }
+            }
+            &+.panel-collapse>.panel-body{
+                border-top: none;
+            }
+        }
+        .panel-body{
+            padding: 0;
+        }
+    }
+}
+
+.color-variation{
+    min-width: 100px;
+}
+.color-variation-box{
+    position: relative;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    margin-bottom: 0;
+    cursor: pointer;
+    @include add-border(1px, $light-color, all);
+    &.color1{
+        @include add-background(#2f2e34);
+    }
+    &.color2{
+        @include add-background(#c8b6ac);
+    }
+    &.color3{
+        @include add-background(#d15151);
+    }
+    &.color4{
+        @include add-background(#291e5f);
+    }
+    &.color5{
+        @include add-background(#36bfcb);
+    }
+    &.color6{
+        @include add-background(#ceb91c);
+    }
+}
+.color-variation-input{
+    opacity: 0;
+    width: 0;
+    &:checked + .color-variation-box:after{
+        content: '';
+        position: absolute;
+        top: -8px;
+        left: 10px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 5px 5px 0 5px;
+        border-color: #484848 transparent transparent transparent;
+    }
+}
+
+.sidebar-filter-input{
+    opacity: 0;
+    width: 0;
+    &:checked + .sidebar-filter-label:before{
+        @include add-background(rgba($dark-color,0.8));
+    }
+}
+.sidebar-filter-label{
+    cursor: pointer;
+    &:before{
+        content: '';
+        font-size: 10px;
+        padding: 0 6px;
+        margin-right: 5px;
+        vertical-align: middle;
+        @include add-border(1px, #ddd, all);
+    }
+}
+
+.p-w-background{
+    background-color: #9f9f9f;
+    color: $white;
+    padding: 10px 30px;
+    display: inline-block;
+}
+
+.inlineInputButton{
+    position: relative;
+    input{
+        width: 100%;
+        padding-right: 200px;
+    }
+    input, .btn{
+        min-height: 44px;
+        vertical-align: top;
+        @include bp(S){
+            width: 100%;
+            margin-bottom: 15px;
+        }
+    }
+}
+
+@media screen and (min-width: 769px){
+    .inlineInputButton{
+        .btn{
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+}

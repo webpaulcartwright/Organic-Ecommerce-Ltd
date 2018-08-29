@@ -1,0 +1,46 @@
+footer{
+    background-color: #fcfcfc;
+    h6{
+        margin-bottom: 20px;
+    }
+    ul{
+        list-style: none;
+        padding: 0;
+        margin-bottom: 30px
+    }
+    li{
+        margin: 0;
+        a{
+            color: #777777;
+            font-size: 14px;
+            @extend %li-a-effect;
+        }
+    }
+    @include bp(M, S){
+        .col-md-3.col-sm-6:nth-child(3){
+            content: '';
+            clear: both;
+            display: table;
+        }
+    }
+    @include bp(S){
+        .col-md-3.col-sm-6{
+            text-align: center;
+        }
+        .col-md-3.col-sm-6:not(:last-child){
+            @include add-border(1px, #ddd, bottom);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        li{
+            margin-bottom: 20px;
+        }
+    }
+}
+.footer-newsletter{
+    input{
+        outline: none;
+        @include add-border(1px, #ddd, all);
+        width: 100%;
+    }
+}

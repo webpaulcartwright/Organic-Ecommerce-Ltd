@@ -1,0 +1,63 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * @description:
+ *
+ */
+?>
+<?php
+$_items = $block->getReviewsCollection()->getItems();
+$format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
+?>
+
+<?php if (count($_items)): ?>
+    <?php foreach ($_items as $_review): ?>
+        <?php
+        $old_date = $_review->getCreatedAt();
+        $old_date_timestamp = strtotime($old_date);
+        $new_date = date('M d,Y', $old_date_timestamp);
+        ?>
+        <div class="single-consumer-review">
+            <div class="consumer-reivew-details">
+                <div class="reviewed-title text-uppercase"><p><?php echo $block->escapeHtml($_review->getTitle()) ?></p></div>
+                <div class="reviewed-meta p-tb-10"><small><strong>Reviewer</strong> <span>on</span> <strong><?php /* @escapeNotVerified */ echo $new_date; ?></strong></small></div>
+                <div class="reviewed-comment"><p><?php echo nl2br($block->escapeHtml($_review->getDetail())) ?></p></div>
+            </div>
+            <div class="consumer-reivew-rating pull-right">
+                <?php if (count($_review->getRatingVotes())): ?>
+
+                    <div class="customer-review">
+                        <div class="review-ratings rate-product-stars">
+                            <div class="rating-summary item stars p-tb-20" itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                                <?php foreach ($_review->getRatingVotes() as $_vote): ?>
+
+                                    <div class="rating-result" title="<?php /* @escapeNotVerified */ echo $_vote->getPercent() ?>%">
+                                        <meta itemprop="worstRating" content = "1"/>
+                                        <meta itemprop="bestRating" content = "100"/>
+                                        <span style="width:<?php /* @escapeNotVerified */ echo $_vote->getPercent() ?>%">
+                                            <span itemprop="ratingValue"><?php /* @escapeNotVerified */ echo $_vote->getPercent() ?>%</span>
+                                        </span>
+                                    </div>
+
+                                <?php endforeach; ?>
+
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <a href="#" style="display:block;"><small>Report as Inappropriate</small></a>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+
+    <?php endforeach; ?>
+<?php endif; ?>
+

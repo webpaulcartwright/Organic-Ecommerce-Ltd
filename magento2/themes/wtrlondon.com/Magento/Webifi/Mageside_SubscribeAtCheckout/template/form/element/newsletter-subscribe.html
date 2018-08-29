@@ -1,0 +1,58 @@
+<!--
+/**
+ * Copyright © 2017 Mageside. All rights reserved.
+ * See MS-LICENSE.txt for license details.
+ */
+-->
+<!-- ko if: visible -->
+<div class="field">
+    <div class="">
+        <!-- ko if: changeable -->
+
+
+        <div class="newsletter_communication">
+            <div class="title">Newsletter Communication</div>
+            <div class="newsletter-description">
+                We’d love to send you exclusive discounts, special offers and the news from WtR by email. We’ll always treat your personal details
+                with the utmost care and will never sell them to other companies for marketing purposes.
+            </div>
+            <div class="notice">Please let us know if you would like us to contact you or not by selecting one of the options below.</div>
+
+            <div class="choice">
+                <input class="input-text"
+                       type="radio"
+                       data-bind="
+                                    textInput: 1"
+                       name="newsletter-subscribe"
+                       id="newsletter-subscribe"/>
+                <label class="label" for="newsletter-subscribe">
+                    <span>Yes please, I’d like to hear about exclusive discounts and the latest WtR news (you can unsubscribe at any time).</span>
+                </label>
+            </div>
+
+            <div class="choice">
+                <input class="input-text"
+                       type="radio"
+                       data-bind="
+                                    textInput: 0"
+                       name="newsletter-subscribe" />
+                <label class="label">
+                    <span>No thanks, I don’t want to hear about exclusive discounts and the latest WtR news.</span>
+                </label>
+            </div>
+        </div>
+
+
+        <!-- /ko -->
+        <!-- ko ifnot: changeable -->
+        <input type="checkbox"
+               id="newsletter-subscribe-disabled"
+               disabled="disabled"
+               checked="checked"/>
+        <label class="label" for="newsletter-subscribe-disabled">
+            <span data-bind="i18n: checkoutLabel"></span>
+        </label>
+        <!-- /ko -->
+    </div>
+</div>
+<!-- /ko -->

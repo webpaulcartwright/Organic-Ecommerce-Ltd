@@ -1,0 +1,175 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+
+     <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">                    
+    <form class="form contact personal-shopper personal-shopper-form"
+      action="<?php /* @escapeNotVerified */ echo $block->getFormAction(); ?>"
+      id="contact-form"
+      method="post"
+      data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>"
+      data-mage-init='{"validation":{}}'>
+	  <input name="form_key" type="hidden" value="<?php /* @escapeNotVerified */ echo $block->getFormKey(); ?>" />
+        <p class="title"><?php /* @escapeNotVerified */ echo __('LOCATION') ?></p>
+                                <div class="custom-select">
+                                    <select name="product-location" class="product-sizes">
+                                        <option value="store">Store</option>
+                                        <option value="home">Home</option>
+                                        <option value="hotel">Hotel</option>
+                                    </select>
+                                </div>
+        
+        <div class="custom-select">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-4 col-xs-4">
+                                            <select name="month" class="date-month">
+                                                <option value="01">Jan</option>
+                                                <option value="02">Feb</option>
+                                                <option value="03">Mar</option>
+                                                <option value="04">Apr</option>
+                                                <option value="05">May</option>
+                                                <option value="06">Jun</option>
+                                                <option value="07">Jul</option>
+                                                <option value="08">Aug</option>
+                                                <option value="09">Sep</option>
+                                                <option value="10">Oct</option>
+                                                <option value="11">Nov</option>
+                                                <option value="12">Dec</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 col-xs-4">
+                                            <select name="day" class="date-day">
+                                                <option value="01">01</option>
+                                                <option value="02">02</option>
+                                                <option value="03">03</option>
+                                                <option value="04">04</option>
+                                                <option value="05">05</option>
+                                                <option value="06">06</option>
+                                                <option value="07">07</option>
+                                                <option value="08">08</option>
+                                                <option value="09">09</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="23">23</option>
+                                                <option value="24">24</option>
+                                                <option value="25">25</option>
+                                                <option value="26">26</option>
+                                                <option value="27">27</option>
+                                                <option value="28">28</option>
+                                                <option value="29">29</option>
+                                                <option value="30">30</option>
+                                                <option value="30">31</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 col-xs-4">
+                                            <select name="year" class="date-year">
+                                                <option value="2017">2017</option>
+                                                <option value="2018">2018</option>
+                                            </select>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <p class="title"><?php /* @escapeNotVerified */ echo __('TIME') ?></p>
+                                <div class="custom-select">
+                                    <select name="product-times" class="product-sizes">
+                                      <?php for($i = 1; $i <= 24; $i++): ?>
+    <option value="<?= $i; ?>"><?= date("h.i A", strtotime("$i:00")); ?></option>
+<?php endfor; ?>
+                                    </select>
+                                </div>
+                                <p class="title"><?php /* @escapeNotVerified */ echo __('YOUR DETAILS') ?></p>
+                                
+                                
+                                 <div class="form-group">
+                                   <input name="name" id="name" placeholder="Name" title="<?php /* @escapeNotVerified */ echo __('Name') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>" class="input-text" type="text" data-validate="{required:true}"/>
+                                </div>
+                                <div class="form-group">
+                                   <input name="email" id="email" placeholder="Email" title="<?php /* @escapeNotVerified */ echo __('Email') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('email') ?: $this->helper('Magento\Contact\Helper\Data')->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+                                </div>
+                                <div class="form-group">
+                                        <input name="telephone" id="telephone" placeholder="Telephone" title="<?php /* @escapeNotVerified */ echo __('Phone Number') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('telephone')) ?>" class="input-text" type="text" />
+                                </div>
+                                <div class="form-group">
+                                    
+                                    <input name="occasion" id="Occasion" placeholder="Occasion" title="<?php /* @escapeNotVerified */ echo __('Occasion') ?>" value="" class="input-text" type="text" data-validate="{required:true}"/>
+                                </div>
+                                <div class="form-group">
+                                  <textarea name="comment" id="comment" placeholder="Enter Your Comments Here" title="<?php /* @escapeNotVerified */ echo __('Enter Your Comments Here') ?>" class="input-text" cols="5" rows="3" data-validate="{required:true}"><?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('comment')) ?></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <p class="p-tb-20 text-center">Please let us know any details about your appointment. Kindly note that this form is only an appointment request and does not confirm booking </p>
+                                </div>
+<!--                                <div class="text-center actions-toolbar"">
+                                     <input type="hidden" name="hideit" id="hideit" value="" />
+                                    <a href="#" class="btn btn-primary submit action ">SUBMIT</a>
+                                </div>-->
+
+<div class="text-center actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value="" />
+            <button type="submit" title="<?php /* @escapeNotVerified */ echo __('SUBMIT') ?>" class="btn btn-primary-transparent action submit primary">
+                <span><?php /* @escapeNotVerified */ echo __('SUBMIT') ?></span>
+            </button>
+        </div>
+    </div>
+<!--    <fieldset class="fieldset">
+        
+      <div class="field name required">
+            <label class="label" for="name"><span><?php /* @escapeNotVerified */ //echo __('Name') ?></span></label>
+            <div class="control">
+                <input name="name" id="name" title="<?php /* @escapeNotVerified */ //echo __('Name') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('name') ?: $this->helper('Magento\Contact\Helper\Data')->getUserName()) ?>" class="input-text" type="text" data-validate="{required:true}"/>
+            </div>
+        </div>
+        <div class="field subject required">
+    <label class="label" for="subject"><span><?php /* @escapeNotVerified */ //echo __('Subject') ?></span></label>
+    <div class="control">
+        <input name="subject" id="subject" title="<?php /* @escapeNotVerified */ //echo __('Subject') ?>" value="" class="input-text" type="text" data-validate="{required:true}"/>
+    </div>
+</div>
+        <div class="field email required">
+            <label class="label" for="email"><span><?php /* @escapeNotVerified */ //echo __('Email') ?></span></label>
+            <div class="control">
+                <input name="email" id="email" title="<?php /* @escapeNotVerified */ //echo __('Email') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('email') ?: $this->helper('Magento\Contact\Helper\Data')->getUserEmail()) ?>" class="input-text" type="email" data-validate="{required:true, 'validate-email':true}"/>
+            </div>
+        </div>
+        <div class="field telephone">
+            <label class="label" for="telephone"><span><?php /* @escapeNotVerified */ //echo __('Phone Number') ?></span></label>
+            <div class="control">
+                <input name="telephone" id="telephone" title="<?php /* @escapeNotVerified */// echo __('Phone Number') ?>" value="<?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('telephone')) ?>" class="input-text" type="text" />
+            </div>
+        </div>
+        <div class="field comment required">
+            <label class="label" for="comment"><span><?php /* @escapeNotVerified */ //echo __('What’s on your mind?') ?></span></label>
+            <div class="control">
+                <textarea name="comment" id="comment" title="<?php /* @escapeNotVerified */ //echo __('What’s on your mind?') ?>" class="input-text" cols="5" rows="3" data-validate="{required:true}"><?php echo $block->escapeHtml($this->helper('Magento\Contact\Helper\Data')->getPostValue('comment')) ?></textarea>
+            </div>
+        </div>
+        <?php //echo $block->getChildHtml('form.additional.info'); ?>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <input type="hidden" name="hideit" id="hideit" value="" />
+            <button type="submit" title="<?php /* @escapeNotVerified */ echo __('Submit') ?>" class="action submit primary">
+                <span><?php /* @escapeNotVerified */ echo __('Submit') ?></span>
+            </button>
+        </div>
+    </div>-->
+</form>
+</div>

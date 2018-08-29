@@ -1,0 +1,116 @@
+<div class="container">
+	<div class="title"><h1>Our Clients</h1></div>
+	<div class="content">
+		<p>We work close with all of our clients to provide a unique experience and the greatest results</p>
+		<div class="list-container">
+            <div class="item">
+                <img src="<?php echo $this->getViewFileUrl('images/homepage/our-clients/Big-Foot-IT-Tigren-partner-1.png');?>"/>
+            </div>
+            <div class="item">
+                <img src="<?php echo $this->getViewFileUrl('images/homepage/our-clients/Bigone-Solution-Tigren-partner.png');?>"/>
+            </div>
+            <div class="item">
+                <img src="<?php echo $this->getViewFileUrl('images/homepage/our-clients/Croft-Tigren-partner.png');?>"/>
+            </div>
+            <div class="item">
+                <img src="<?php echo $this->getViewFileUrl('images/homepage/our-clients/Dr-John-Candies-Tigren-partner-1.png');?>"/>
+            </div>
+            <div class="item">
+                <img src="<?php echo $this->getViewFileUrl('images/homepage/our-clients/Haute-Rouge-Tigren-partner-1.png');?>"/>
+            </div>
+            <div class="item">
+                <img src="<?php echo $this->getViewFileUrl('images/homepage/our-clients/Margin-Frame-Logo.png');?>"/>
+            </div>
+            <div class="item">
+                <img src="<?php echo $this->getViewFileUrl('images/homepage/our-clients/Octagon-Education-Tigren-partner.png');?>"/>
+            </div>
+            <div class="item">
+                <img src="<?php echo $this->getViewFileUrl('images/homepage/our-clients/Stock-in-the-channer-Tigren-partner-2-1.png');?>"/>
+            </div>
+            <div class="item">
+                <img src="<?php echo $this->getViewFileUrl('images/homepage/our-clients/Tech-Direct-Tigren-partner.png');?>"/>
+            </div>
+		</div>
+		<div class="testimals container-fullwidth">
+			<div class="col-md-6 clients">
+				<div class="item">
+					<div class="content">
+						<h3>Tanya Dale</h3>
+						<img src="<?php echo $this->getViewFileUrl('images/homepage/site-logos/kneadgood.png');?>"/>
+						<p>https://kneadgood.ch</p>
+					</div>
+				</div>
+				<div class="item">
+					<div class="content">
+						<h3>Aron Aharonoff</h3>
+						<img src="<?php echo $this->getViewFileUrl('images/homepage/site-logos/kneadgood.png');?>"/>
+						<p>https://accessoryinc.com</p>
+					</div>
+				</div>
+				<div class="item">
+					<div class="content">
+						<h3>Paul Cartwright</h3>
+						<img src="<?php echo $this->getViewFileUrl('images/homepage/site-logos/kneadgood.png');?>"/>
+						<p>https://onlinecamerashop.nl</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 feedbacks">
+				<div class="item">
+					<p>We have implemented the "Shopping list" extension. It was quite a job to integrate it in our site. We were really amazed by the commitment from this team. Even after a few weeks we had a request and the team was ready to support us. Everything we asked was done in a few hours. We highly recommend this company because of the great extensions and reliability!</p>
+				</div>
+				<div class="item">
+					<p>We have implemented the "Shopping list" extension. It was quite a job to integrate it in our site. We were really amazed by the commitment from this team. Even after a few weeks we had a request and the team was ready to support us. Everything we asked was done in a few hours. We highly recommend this company because of the great extensions and reliability!</p>
+				</div>
+				<div class="item">
+					<p>We have implemented the "Shopping list" extension. It was quite a job to integrate it in our site. We were really amazed by the commitment from this team. Even after a few weeks we had a request and the team was ready to support us. Everything we asked was done in a few hours. We highly recommend this company because of the great extensions and reliability!</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'owl.carousel/owl.carousel.min'
+    ], function () {
+        jQuery(".section.our-client .list-container").owlCarousel({
+            items: 6,
+            autoplay: true,
+            autoplayTimeout: 3600,
+            autoplayHoverPause: false,
+            dots: false,
+            nav: false,
+            navRewind: true,
+            animateIn: 'fadeIn',
+            animateOut: 'fadeOut',
+            loop: true
+        });
+		jQuery("section.section.margin-top.our-client .container .testimals .clients").owlCarousel({
+            items: 1,
+            autoplay: false,
+            autoplayTimeout: 5000,
+            autoplayHoverPause: false,
+            dots: true,
+			autoHeight: true,
+            nav: false,
+            navRewind: true,
+            animateIn: 'fadeIn',
+            animateOut: 'fadeOut',
+            loop: true
+        });
+		jQuery("section.section.margin-top.our-client .container .testimals .feedbacks").owlCarousel({
+            items: 1,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            autoplayHoverPause: false,
+			autoHeight: true,
+            dots: false,
+            nav: false,
+            navRewind: true,
+            animateIn: 'fadeIn',
+            animateOut: 'fadeOut',
+            loop: true
+        });
+    });
+</script>

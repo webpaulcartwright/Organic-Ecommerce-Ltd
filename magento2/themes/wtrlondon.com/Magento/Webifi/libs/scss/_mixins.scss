@@ -1,0 +1,156 @@
+//Maximum and Minimum Height
+@mixin minmax-height($val){
+	min-height: $val;
+	max-height: $val;
+}
+
+
+//Border Radius
+@mixin border-radius($radius) {
+	-o-border-radius: $radius;
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+	border-radius: $radius;
+}
+
+//Add Border
+@mixin add-border($size, $color, $position) {
+	@if $position=='all' {
+		border: $size solid $color;
+	}
+	@else if $position=='top' {
+		border-top: $size solid $color;
+	}
+	@else if $position=='bottom' {
+		border-bottom: $size solid $color;
+	}
+	@else if $position=='right' {
+		border-right: $size solid $color;
+	}
+	@else if $position=='left' {
+		border-left: $size solid $color;
+	}
+	@else if $position=='top-bottom' {
+		border-top: $size solid $color;
+		border-bottom: $size solid $color;
+	}
+	@else if $position=='right-left' {
+		border-right: $size solid $color;
+		border-left: $size solid $color;
+	}
+	@else if $position=='left' {
+		border-left: $size solid $color;
+	}
+}
+
+//Add Background
+@mixin add-background($color) {
+	background-color: $color;
+	@if $color==$dark-color {
+		color: $white;
+	}
+	@else if $color==#484848{
+		color: $white;
+	}
+}
+
+//Transitions
+@mixin transition($property: all, $duration: .3s, $timing: ease){
+	-moz-transition:    $property, $duration, $timing;
+    -o-transition:      $property, $duration, $timing;
+    -webkit-transition: $property, $duration, $timing;
+    transition:         $property, $duration, $timing;
+}
+
+//Transform Scale
+@mixin transform_scale($property){
+	-webkit-transform: scale($property);
+    -ms-transform: scale($property);
+    transform: scale($property);
+}
+
+//Transform Rotate
+@mixin transform_rotate($axis, $property){//$axis = x or y, $property = deg
+    @if $axis==y{
+		-webkit-transform: rotateY($property);
+        -ms-transform: rotateY($property);
+        -o-transform: rotateY($property);
+        transform: rotateY($property);
+	}
+	@else if $axis==x{
+        -webkit-transform: rotateX($property);
+        -ms-transform: rotateX($property);
+        -o-transform: rotateX($property);
+        transform: rotateX($property);
+	}
+	
+}
+
+//Media Query Break Point
+@mixin bp($point,$point2: null) {
+	@if $point==XXL and ($point2==null){
+		@media screen and (max-width: 1600px) {
+			@content;
+		}
+	}
+	@else if $point==XL and ($point2==null){
+		@media screen and (max-width: 1200px) {
+			@content;
+		}
+	}
+	@else if $point==L and ($point2==null){
+		@media screen and (max-width: 1023px) {
+			@content;
+		}
+	}
+	@else if $point==M and ($point2==null){
+		@media screen and (max-width: 990px) {
+			@content;
+		}
+	}
+	@else if ($point==S) and ($point2==null){
+		@media screen and (max-width: 767px) {
+			@content;
+		}
+	}
+	@else if $point==XS and ($point2==null){
+		@media screen and (max-width: 480px) {
+			@content;
+		}
+	}
+	@else if $point==XXS and ($point2==null){
+		@media screen and (max-width: 320px) {
+			@content;
+		}
+	}@else if ($point==M) and ($point2==S){
+		@media screen and (max-width: 991px) and (min-width: 769px) {
+			@content;
+		}
+	}@else if ($point==S) and ($point2==XS){
+		@media screen and (max-width: 768px) and (min-width: 480px) {
+			@content;
+		}
+	}
+    @else if ($point==S) and ($point2==XXS){
+		@media screen and (max-width: 768px) and (min-width: 320px) {
+			@content;
+		}
+	}
+}
+
+
+//Button
+
+@mixin button-size($padding-base-vertical: 14px, $padding-base-horizontal: 8px, $base-line-height: 14px){
+	padding-top: $padding-base-vertical;
+	padding-bottom: $padding-base-vertical;
+	padding-right: $padding-base-horizontal;
+	padding-left: $padding-base-horizontal;
+	line-height: $base-line-height;
+}
+
+@mixin button-variant($btn-default-color, $btn-default-bg, $btn-default-border){
+	color: $btn-default-color;
+	background-color: $btn-default-bg;
+	border-color: $btn-default-border; 
+}

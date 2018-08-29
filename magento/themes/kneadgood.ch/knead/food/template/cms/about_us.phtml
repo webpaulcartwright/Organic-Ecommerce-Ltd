@@ -1,0 +1,63 @@
+<div class="about_us">
+	
+	
+	<div class="first">
+	
+		<div class="image_block"><br><br><img src="<?php echo $this->getSkinUrl('images/aboutpage/kneadg_1.jpg');?>"/><br></div>
+	
+		<div class="content_block"><br><br><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('about-first-block')->toHtml() ?></div>
+	
+	</div>
+	
+	<div class="first">
+	
+		<div class="image_block"><br><br><img src="<?php echo $this->getSkinUrl('images/aboutpage/kneadg_2.jpg');?>"/><br></div>
+	
+		<div class="content_block"><br><br><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('about-second-block')->toHtml() ?></div>
+	
+	</div>
+	
+	<div class="first">
+	
+		<div class="image_block"><br><br><img src="<?php echo $this->getSkinUrl('images/aboutpage/kneadg_3.jpg');?>"/><br></div>
+	
+		<div class="content_block"><br><br><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('about-third-block')->toHtml() ?></div>
+			<a name="quote"></a>	
+	</div>
+
+<div class="about-slider">
+	<div class="second">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('about-quote-1')->toHtml() ?>
+	</div>
+	<div class="third">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('about-quote-2')->toHtml() ?>
+	</div>
+	<div class="fourth">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('about-quote-3')->toHtml() ?>
+	</div>
+	<div class="fifth">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('about-quote-4')->toHtml() ?>
+	</div>
+	<div class="sixth">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('about-quote-5')->toHtml() ?>
+	</div>
+</div>
+
+	<div class="seventh owl-carousel">
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('about-bottom-slide')->toHtml() ?>
+	</div>
+	
+</div>
+<script>
+	jQuery(document).ready(function($) {
+		var owl = $('.seventh');
+		owl.owlCarousel({
+			items:1,
+			loop:true,
+			margin:10,
+			autoplay:true,
+			autoplayTimeout:5000,
+			autoplayHoverPause:false
+		});
+	});
+</script>

@@ -1,0 +1,53 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$formatedAddress = $objectManager->create('\Magento\Sales\Model\Order\Email\Sender\OrderSender'); 
+//$order_block = $block->getLayout()->createBlock('\Magento\Sales\Block\Order\Email\Items'); ?>
+<?php $_shipment = $block->getShipment() ?>
+<?php $_order    = $block->getOrder() ?>
+<?php if ($_shipment && $_order): ?>
+    <table class="email-items" style="width:100%;text-align: left;margin-bottom: 30px;border-spacing: 0;border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th class="item-info" style="padding: 10px 0;border-bottom: 1px solid #ddd;font-weight: normal;color: #ab703b;">
+                    <?= /* @escapeNotVerified */  __('ITEMS'); ?>
+                </th>
+                <th class="item-qty" style="padding: 10px 0;border-bottom: 1px solid #ddd;font-weight: normal;color: #ab703b;">
+                    <?= /* @escapeNotVerified */  __('QUANTITY'); ?>
+                </th>
+            </tr>
+        </thead>
+        <?php foreach ($_shipment->getAllItems() as $_item): ?>
+            <?php
+                if ($_item->getOrderItem()->getParentItem()) {
+                    continue;
+                }
+            ?>
+            <tbody>
+                <?= $block->getItemHtml($_item) ?>
+            </tbody>
+        <?php endforeach; ?>
+    </table>
+    <table style="width: 100%">
+        <tbody style="width: 50%;float: left;">
+            <tr style="width: 100%;float: left;">
+                <td style="width: 90%;float: left;">
+                    <div class="invoice">
+                        
+                        <div style="display: table;content: '';clear: both;"></div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+      <?php /*  <tfoot class="order-totals" style="width: 50%;float: right;">
+            <?= $order_block->getChildHtml('order_totals') ?>
+        </tfoot> */?>
+    </table>
+<?php endif; ?>

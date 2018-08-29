@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="Magento_Cms::css/homepage-mobile.css"/>
+	</head>
+    <body>		
+		<referenceContainer name="main.content">
+			<block class="Magento\Framework\View\Element\Template" name="home.banner.block" after="-" template="Magento_Cms::homepage/banner.phtml"/>
+			<container name="home.post.block" label="Homepage Posters" htmlClass="custom_home_posts" htmlTag="div" after="home.banner.block">
+				<block class="Magento\Framework\View\Element\Template" name="home.post.bio" before="-" template="Magento_Cms::homepage/post/bio.phtml"/>
+				<block class="Magento\Framework\View\Element\Template" name="home.post.free" after="home.post.bio" template="Magento_Cms::homepage/post/free.phtml"/>
+				<block class="Magento\Framework\View\Element\Template" name="home.post.chic" after="home.post.free" template="Magento_Cms::homepage/post/chic.phtml"/>
+				<block class="Magento\Framework\View\Element\Template" name="home.post.social" after="-" template="Magento_Cms::homepage/post/social.phtml"/>
+			</container>
+			<block class="Magento\Catalog\Block\Product\ListProduct" name="home.featured.product" after="-" template="Magento_Catalog::product/featured_product.phtml"/>
+		</referenceContainer>
+	</body>
+</page>

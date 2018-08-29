@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+?>
+
+<div class="inlineInputButton">
+
+    <form id="discount-coupon-form"
+          action="<?php /* @escapeNotVerified */ echo $block->getUrl('checkout/cart/couponPost') ?>"
+          method="post"
+          data-mage-init='{"discountCode":{"couponCodeSelector": "#coupon_code",
+          "removeCouponSelector": "#remove-coupon",
+          "applyButton": "button.action.apply",
+          "cancelButton": "button.action.cancel"}}'>
+
+        <input type="text" class="input-text" id="coupon_code" name="coupon_code" value="<?php echo $block->escapeHtml($block->getCouponCode()) ?>" placeholder="<?php echo $block->escapeHtml(__('Promotional Code')); ?>" />
+
+        <button class="action apply primary btn" type="button" value="<?php /* @escapeNotVerified */ echo __('Apply Discount') ?>">
+            <span><?php /* @escapeNotVerified */ echo __('SUBMIT') ?></span>
+        </button>
+    </form>
+</div>

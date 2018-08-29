@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /* @escapeNotVerified */ echo $block->getMiscellaneousHtml(); ?>
+
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$value = $objectManager->create('Micro\CustomCheckout\Cookie\Custom')->get();?>
+
+<!-- Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+        <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('modal_welcome_text_contnet')->toHtml();?>
+		<div class="text-center subscribe-bottom">
+	        <input id="newsletter_popup_dont_show_again" type="checkbox">
+	        <label for="newsletter_popup_dont_show_again">Don't show this popup again</label>
+	        	        
+	    </div>
+        <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('modal_link_contnet')->toHtml();?>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	var f = jQuery.noConflict();
+<?php //if($value != 'isshown'){ ?>	
+	// f(window).load(function () {
+	// 	"use strict";
+	// 	f('#myModal').modal('show');
+	// });
+<?php // } ?>
+jQuery("#myModal").on("hidden.bs.modal", function () {      
+    <?php $objectManager->create('Micro\CustomCheckout\Cookie\Custom')->set("isshown", date('Y-m-d H:i:s', strtotime("+1 day") ));?>
+});
+jQuery("#newsletter_popup_dont_show_again").click(function(){		
+	<?php $objectManager->create('Micro\CustomCheckout\Cookie\Custom')->set("isshown", date('Y-m-d H:i:s', strtotime("+30 days") ));?>
+	});
+</script>
